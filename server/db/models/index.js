@@ -3,16 +3,18 @@ const Group = require('./group')
 const Event = require('./event')
 const Notification = require('./notification')
 
-Group.belongsToMany(User, {through: GroupUser})
-User.belongsToMany(Group, {through: GroupUser})
+Group.belongsToMany(User, {through: 'groupUsers'})
+User.belongsToMany(Group, {through: 'groupUsers'})
 
 Event.belongsTo(Group)
 Group.hasMany(Event)
 
-User.hasMany(User, {
-  as: 'Friends',
-  foreignKey: 'FriendId',
-  through: 'Friend'
+Event.belongsToMany(User, {through: 'eventUsers'})
+User.belongsToMany(Event, {through: 'eventUsers'})
+
+User.belongsToMany(User, {
+  as: 'friend',
+  through: 'friends'
 })
 
 Notification.belongsTo(User)
