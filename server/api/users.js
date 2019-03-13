@@ -30,26 +30,33 @@ router.get('/', isLoggedIn, async (req, res, next) => {
   }
 })
 
-router.get('/:id', isAuthenticated, async (req, res, next) => {
-  try {
-    const userId = req.params.id
-    const data = await User.findById(userId)
-    res.json(data)
-  } catch (error) {
-    next(error)
+router.get(
+  '/:id',
+  /*isAuthenticated,*/ async (req, res, next) => {
+    try {
+      const userId = req.params.id
+      const data = await User.findById(userId)
+      res.json(data)
+    } catch (error) {
+      next(error)
+    }
   }
-})
+)
 
-router.get('/:id/friends', isAuthenticated, async (req, res, next) => {
-  try {
-    const userId = req.params.id
-    const friends = await Friendship.findAll({
-      where: {userId}
-    })
-    res.json(friends)
-  } catch (error) {
-    console.log(error)
-    next(error)
+router.get(
+  '/:id/friends',
+  /*isAuthenticated,*/ async (req, res, next) => {
+    try {
+      const userId = req.params.id
+      const friends = await Friendship.findAll({
+        where: {userId},
+        include: [{model: User}]
+      })
+      res.json(friends)
+    } catch (error) {
+      console.log(error)
+      next(error)
+    }
   }
-})
+)
 module.exports = router
