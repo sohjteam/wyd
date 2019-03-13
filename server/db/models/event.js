@@ -21,6 +21,16 @@ const Event = db.define('event', {
     validate: {
       notEmpty: true
     }
+  },
+  startDate: {
+    type: Sequelize.DATEONLY,
+    allowNull: false,
+    defaultValue: Sequelize.NOW
+  },
+  time: {
+    type: Sequelize.TIME,
+    allowNull: false,
+    defaultValue: Sequelize.NOW
   }
 })
 
