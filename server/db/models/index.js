@@ -13,8 +13,15 @@ Event.belongsToMany(User, {through: 'eventUsers'})
 User.belongsToMany(Event, {through: 'eventUsers'})
 
 User.belongsToMany(User, {
+  as: 'user',
+  through: 'friends',
+  foreignKey: 'friendId'
+})
+
+User.belongsToMany(User, {
   as: 'friend',
-  through: 'friends'
+  through: 'friends',
+  foreignKey: 'userId'
 })
 
 Notification.belongsTo(User)
