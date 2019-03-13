@@ -1,7 +1,5 @@
 const router = require('express').Router()
 const {User} = require('../db/models')
-const db = require('../db')
-const Friendship = db.model('friends')
 
 const isAuthenticated = (req, res, next) => {
   if (req.user.dataValues.id === Number(req.params.id)) return next()
@@ -48,9 +46,16 @@ router.get(
   /*isAuthenticated,*/ async (req, res, next) => {
     try {
       const userId = req.params.id
-      const friends = await Friendship.findAll({
-        where: {userId},
-        include: [{model: User}]
+      const friends = await User.findById(userId, {
+        as: 'user',
+        include: [
+          {
+            model: User,
+            as: 'friend',
+            attributes: ['firstName', 'lastName', 'image'],
+            through: {attributes: []}
+          }
+        ]
       })
       res.json(friends)
     } catch (error) {

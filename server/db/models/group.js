@@ -12,6 +12,10 @@ const Group = db.define('group', {
       return () => this.getDataValue('password')
     }
   },
+  image: {
+    type: Sequelize.STRING,
+    defaultValue: ''
+  },
   salt: {
     type: Sequelize.STRING,
     get() {
