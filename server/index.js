@@ -36,7 +36,7 @@ app.use((req, res, next) => {
   res.status(err.status || 500).send(err.message || 'Internal server error')
 })
 
-db.sync({force: true}).then(() => {
+db.sync().then(() => {
   console.log('db synced')
   app.listen(PORT, () => {
     console.log(`Time to study, buddy ${PORT}`)
