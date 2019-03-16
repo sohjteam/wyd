@@ -112,4 +112,37 @@ router.get('/:id/notifications', async (req, res, next) => {
     next(error)
   }
 })
+
+router.post('/', async (req, res, next) => {
+  try {
+    const newUser = await User.create(req.body)
+    res.json(newUser)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/:id', async (req, res, next) => {
+  try {
+    const userId = req.params.id
+    const user = await User.findById(userId)
+    if (!user) throw next()
+    const updated = await user.update(req.body)
+    res.json(updated)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const userId = req.params.id
+    const data = await User.destroy({
+      where: {id: userId}
+    })
+    res.json(data)
+  } catch (error) {
+    next(error)
+  }
+})
 module.exports = router
