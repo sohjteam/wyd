@@ -28,44 +28,38 @@ router.get('/', isLoggedIn, async (req, res, next) => {
   }
 })
 
-router.get(
-  '/:id',
-  /*isAuthenticated,*/ async (req, res, next) => {
-    try {
-      const userId = req.params.id
-      const data = await User.findById(userId)
-      res.json(data)
-    } catch (error) {
-      next(error)
-    }
+router.get('/:id', isAuthenticated, async (req, res, next) => {
+  try {
+    const userId = req.params.id
+    const data = await User.findById(userId)
+    res.json(data)
+  } catch (error) {
+    next(error)
   }
-)
+})
 
-router.get(
-  '/:id/friends',
-  /*isAuthenticated,*/ async (req, res, next) => {
-    try {
-      const userId = req.params.id
-      const friends = await User.findById(userId, {
-        as: 'user',
-        include: [
-          {
-            model: User,
-            as: 'friend',
-            attributes: ['firstName', 'lastName', 'image'],
-            through: {attributes: []}
-          }
-        ]
-      })
-      res.json(friends)
-    } catch (error) {
-      console.log(error)
-      next(error)
-    }
+router.get('/:id/friends', isAuthenticated, async (req, res, next) => {
+  try {
+    const userId = req.params.id
+    const friends = await User.findById(userId, {
+      as: 'user',
+      include: [
+        {
+          model: User,
+          as: 'friend',
+          attributes: ['firstName', 'lastName', 'image'],
+          through: {attributes: []}
+        }
+      ]
+    })
+    res.json(friends)
+  } catch (error) {
+    console.log(error)
+    next(error)
   }
-)
+})
 
-router.get('/:id/events', async (req, res, next) => {
+router.get('/:id/events', isAuthenticated, async (req, res, next) => {
   try {
     const userId = req.params.id
     const events = await User.findById(userId, {
@@ -81,7 +75,7 @@ router.get('/:id/events', async (req, res, next) => {
   }
 })
 
-router.get('/:id/groups', async (req, res, next) => {
+router.get('/:id/groups', isAuthenticated, async (req, res, next) => {
   try {
     const userId = req.params.id
     const groups = await User.findById(userId, {
@@ -97,7 +91,7 @@ router.get('/:id/groups', async (req, res, next) => {
   }
 })
 
-router.get('/:id/notifications', async (req, res, next) => {
+router.get('/:id/notifications', isAuthenticated, async (req, res, next) => {
   try {
     const userId = req.params.id
     const notifs = await User.findById(userId, {
@@ -122,7 +116,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', isAuthenticated, async (req, res, next) => {
   try {
     const userId = req.params.id
     const user = await User.findById(userId)
