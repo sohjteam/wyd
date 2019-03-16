@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, Event, Group} = require('../db/models')
+const {User, Event, Group, Notification} = require('../db/models')
 
 const isAuthenticated = (req, res, next) => {
   if (req.user.dataValues.id === Number(req.params.id)) return next()
@@ -92,6 +92,22 @@ router.get('/:id/groups', async (req, res, next) => {
       ]
     })
     res.json(groups)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.get('/:id/notifications', async (req, res, next) => {
+  try {
+    const userId = req.params.id
+    const notifs = await User.findById(userId, {
+      include: [
+        {
+          model: Notification
+        }
+      ]
+    })
+    res.json(notifs)
   } catch (error) {
     next(error)
   }
