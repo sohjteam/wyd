@@ -80,4 +80,20 @@ router.get('/:id/events', async (req, res, next) => {
     next(error)
   }
 })
+
+router.get('/:id/groups', async (req, res, next) => {
+  try {
+    const userId = req.params.id
+    const groups = await User.findById(userId, {
+      include: [
+        {
+          model: Group
+        }
+      ]
+    })
+    res.json(groups)
+  } catch (error) {
+    next(error)
+  }
+})
 module.exports = router
