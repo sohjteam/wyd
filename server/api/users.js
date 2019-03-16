@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, Event, Group} = require('../db/models')
 
 const isAuthenticated = (req, res, next) => {
   if (req.user.dataValues.id === Number(req.params.id)) return next()
@@ -65,4 +65,19 @@ router.get(
   }
 )
 
+router.get('/:id/events', async (req, res, next) => {
+  try {
+    const userId = req.params.id
+    const events = await User.findById(userId, {
+      include: [
+        {
+          model: Event
+        }
+      ]
+    })
+    res.json(events)
+  } catch (error) {
+    next(error)
+  }
+})
 module.exports = router
