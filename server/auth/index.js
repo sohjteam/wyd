@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const {User} = require('../db/models')
-module.exports = router
 
 router.post('/login', async (req, res, next) => {
   try {
@@ -49,3 +48,5 @@ router.get('/me', (req, res) => {
     res.json(req.user)
   }
 })
+
+module.exports = router

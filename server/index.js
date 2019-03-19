@@ -14,6 +14,7 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.static(path.join(__dirname, '../public')))
 
 app.use('/api', require('./api'))
+app.use('/auth', require('./auth'))
 
 app.use('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'))
