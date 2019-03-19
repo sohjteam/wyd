@@ -107,21 +107,6 @@ router.get('/:id/notifications', isAuthenticated, async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
-  try {
-    const newUser = await User.create({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      email: req.body.email,
-      password: req.body.password,
-      image: req.body.image
-    })
-    res.json(newUser)
-  } catch (error) {
-    next(error)
-  }
-})
-
 router.put('/:id', isAuthenticated, async (req, res, next) => {
   try {
     const userId = req.params.id
