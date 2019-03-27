@@ -5,7 +5,7 @@ import Routes from './routes'
 const App = () => {
   return (
     <>
-      <div>wyd</div>
+      {/* <div>wyd</div> */}
       <Routes />
     </>
   )
