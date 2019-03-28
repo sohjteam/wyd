@@ -54,7 +54,6 @@ export const createUser = (
       firstName,
       lastName
     })
-    console.log('REW', res)
     dispatch(getUser(res.data))
   } catch (error) {
     console.error(error)

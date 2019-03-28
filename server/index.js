@@ -5,6 +5,7 @@ const PORT = 8000
 const app = express()
 const morgan = require('morgan')
 const passport = require('passport')
+const session = require('express-session')
 
 module.exports = app
 
@@ -22,6 +23,14 @@ passport.deserializeUser(async (id, done) => {
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
+
+app.use(
+  session({
+    secret: 'a wildly insecure secret',
+    resave: false,
+    saveUninitialized: false
+  })
+)
 
 app.use(passport.initialize())
 app.use(passport.session())
