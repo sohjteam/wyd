@@ -20,10 +20,11 @@ class Login extends Component {
   }
   handleSubmit = event => {
     event.preventDefault()
-    const email = event.target.email
-    const password = event.target.password
+    const email = event.target.email.value
+    const password = event.target.password.value
     this.props.auth(email, password)
   }
+
   render() {
     return (
       <>

@@ -29,7 +29,6 @@ export const logOut = () => async dispatch => {
 export const auth = (email, password) => async dispatch => {
   let res
   try {
-    console.log('HDUHSADIH')
     res = await axios.post('/auth/login', {email, password})
   } catch (authError) {
     return dispatch(getUser({error: authError}))
@@ -37,7 +36,6 @@ export const auth = (email, password) => async dispatch => {
 
   try {
     dispatch(getUser(res.data))
-    console.log('REDIRECT')
   } catch (dispatchError) {
     console.error(dispatchError)
   }
@@ -56,6 +54,7 @@ export const createUser = (
       firstName,
       lastName
     })
+    console.log('REW', res)
     dispatch(getUser(res.data))
   } catch (error) {
     console.error(error)
