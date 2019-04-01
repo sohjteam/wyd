@@ -13,7 +13,7 @@ class UserHome extends Component {
     }
     return (
       <>
-        <h1>hi</h1>
+        <h1>My Events</h1>
         {this.props.myEvents.map(event => (
           <li key={event.id}>
             <h1>Event: {event.name}</h1>

@@ -11,7 +11,6 @@ const initialState = {
 export const getMyEvents = userId => async dispatch => {
   try {
     const res = await axios.get(`/api/users/${userId}/events`)
-    console.log('RESSS IN EVENTS STORE', res.data.events)
     dispatch(gotMyEvents(res.data.events))
   } catch (error) {
     console.log(error)
