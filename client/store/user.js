@@ -1,4 +1,5 @@
 import axios from 'axios'
+import history from '../history'
 
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
@@ -21,6 +22,7 @@ export const logOut = () => async dispatch => {
   try {
     await axios.post('/auth/logout')
     dispatch(removeUser())
+    history.push('/')
   } catch (error) {
     console.error(error)
   }
@@ -36,6 +38,7 @@ export const auth = (email, password) => async dispatch => {
 
   try {
     dispatch(getUser(res.data))
+    history.push('/')
   } catch (dispatchError) {
     console.error(dispatchError)
   }
@@ -55,6 +58,7 @@ export const createUser = (
       lastName
     })
     dispatch(getUser(res.data))
+    history.push('/')
   } catch (error) {
     console.error(error)
   }
