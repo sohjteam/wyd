@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {auth} from '../store/user'
+import {Link} from 'react-router-dom'
 
 class Login extends Component {
   constructor() {
@@ -42,6 +43,9 @@ class Login extends Component {
             value={this.state.password}
           />
           <button type="submit">Login</button>
+          <Link to="/signup">
+            <button>Create an Account</button>
+          </Link>
         </form>
       </>
     )
