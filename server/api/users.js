@@ -2,7 +2,9 @@ const router = require('express').Router()
 const {User, Event, Group, Notification} = require('../db/models')
 
 const isAuthenticated = (req, res, next) => {
-  if (req.user.dataValues.id === Number(req.params.id)) return next()
+  if (req.user.dataValues.id === Number(req.params.id)) {
+    return next()
+  }
   res.redirect('/')
 }
 
