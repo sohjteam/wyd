@@ -1,16 +1,73 @@
 import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink
+} from 'reactstrap'
 
-const Navbar = () => {
-  return (
-    <nav id="navbar">
-      WELCOME!
-      <Link to="/userhome">Profile</Link>
-      <Link to="/events">Events</Link>
-      <Link to="/groups">Groups</Link>
-      <Link to="/login">Login</Link>
-    </nav>
-  )
+const barStyle = {
+  backgroundColor: '#b7d1e1',
+  fontFamily: ''
 }
 
-export default Navbar
+const linkStyle = {
+  color: 'white'
+}
+
+class NavigationBar extends Component {
+  constructor(props) {
+    super(props)
+
+    this.toggle = this.toggle.bind(this)
+    this.state = {
+      isOpen: false
+    }
+  }
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    })
+  }
+  render() {
+    return (
+      <div>
+        <Navbar style={barStyle} light expand="md">
+          <NavbarBrand href="/">
+            <img src="wydWeb.png" width="100" height="40" />
+          </NavbarBrand>
+          <NavbarToggler onClick={this.toggle} />
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink style={linkStyle} href="/profile">
+                  Profile
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink style={linkStyle} href="/events">
+                  Events
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink style={linkStyle} href="/groups">
+                  Groups
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink style={linkStyle} href="/login">
+                  Login
+                </NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
+    )
+  }
+}
+
+export default NavigationBar
