@@ -1,16 +1,46 @@
-import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
+import React from 'react'
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from 'reactstrap'
 
-const Navbar = () => {
+const barStyle = {
+  backgroundColor: '#b7d1e1'
+}
+
+const linkStyle = {
+  color: 'white'
+}
+
+const NavigationBar = () => {
   return (
-    <nav id="navbar">
-      WELCOME!
-      <Link to="/userhome">Profile</Link>
-      <Link to="/events">Events</Link>
-      <Link to="/groups">Groups</Link>
-      <Link to="/login">Login</Link>
-    </nav>
+    <div>
+      <Navbar style={barStyle} light expand="md">
+        <NavbarBrand href="/">reactstrap</NavbarBrand>
+        <Nav className="ml-auto" navbar>
+          <NavItem>
+            <NavLink style={linkStyle} href="/components/">
+              Components
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="https://github.com/reactstrap/reactstrap">
+              GitHub
+            </NavLink>
+          </NavItem>
+        </Nav>
+      </Navbar>
+    </div>
   )
 }
 
-export default Navbar
+export default NavigationBar

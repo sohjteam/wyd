@@ -5,8 +5,7 @@ import {Router} from 'react-router-dom'
 import history from './history'
 import store from './store'
 import App from './app'
-import 'bootstrap'
-import '../public/scss/custom.scss'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 ReactDOM.render(
   <Provider store={store}>
