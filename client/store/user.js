@@ -38,7 +38,7 @@ export const auth = (email, password) => async dispatch => {
 
   try {
     dispatch(getUser(res.data))
-    history.push('/')
+    history.push('/userhome')
   } catch (dispatchError) {
     console.error(dispatchError)
   }
@@ -58,7 +58,7 @@ export const createUser = (
       lastName
     })
     dispatch(getUser(res.data))
-    history.push('/')
+    history.push('/userhome')
   } catch (error) {
     console.error(error)
   }
