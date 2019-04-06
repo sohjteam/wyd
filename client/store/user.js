@@ -3,16 +3,21 @@ import history from '../history'
 
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
+const GET_FRIENDS = 'GET_FRIENDS'
 
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
+const getFriends = friends => ({type: GET_FRIENDS, friends})
 
-const defaultUser = {}
+const initialState = {
+  user: {},
+  friends: []
+}
 
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
-    dispatch(getUser(res.data || defaultUser))
+    dispatch(getUser(res.data || initialState.user))
   } catch (error) {
     console.error(error)
   }
@@ -64,12 +69,24 @@ export const createUser = (
   }
 }
 
-export default function(state = defaultUser, action) {
+export const getMyFriends = userId => async dispatch => {
+  try {
+    const res = await axios.get(`/api/users/${userId}/friends`)
+    dispatch(getFriends(res.data))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export default function(state = initialState, action) {
   switch (action.type) {
     case GET_USER:
-      return action.user
+      return {...state, user: action.user}
+    case GET_FRIENDS:
+      console.log('MYFRIENDS', action.friends.friend)
+      return {...state, friends: action.friends.friend}
     case REMOVE_USER:
-      return defaultUser
+      return initialState
     default:
       return state
   }
