@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {auth} from '../store/user'
 import {Link} from 'react-router-dom'
+import {Form, FormGroup, Label, Col, Input, Button} from 'reactstrap'
 
 class Login extends Component {
   constructor() {
@@ -28,26 +29,42 @@ class Login extends Component {
 
   render() {
     return (
-      <>
-        <form onSubmit={this.handleSubmit}>
-          <h1>Email:</h1>
-          <input
-            onChange={this.handleChange}
-            name="email"
-            value={this.state.email}
-          />
-          <h1>Password:</h1>
-          <input
-            onChange={this.handleChange}
-            name="password"
-            value={this.state.password}
-          />
-          <button type="submit">Login</button>
-          <Link to="/signup">
-            <button>Create an Account</button>
-          </Link>
-        </form>
-      </>
+      <Form onSubmit={this.handleSubmit}>
+        <FormGroup row>
+          <Label for="email" sm={2}>
+            Email
+          </Label>
+          <Col sm={10}>
+            <Input
+              type="email"
+              name="email"
+              id="email"
+              placeholder=""
+              onChange={this.handleChange}
+              value={this.state.email}
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Label for="password" sm={2}>
+            Password
+          </Label>
+          <Col sm={10}>
+            <Input
+              type="password"
+              name="password"
+              id="password"
+              placeholder=""
+              onChange={this.handleChange}
+              value={this.state.password}
+            />
+          </Col>
+        </FormGroup>
+        <Button>Submit</Button>
+        <Link to="/signup">
+          <Button>Create an Account</Button>
+        </Link>
+      </Form>
     )
   }
 }
