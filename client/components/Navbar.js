@@ -8,8 +8,7 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
-  Button
+  NavLink
 } from 'reactstrap'
 
 const barStyle = {
@@ -69,7 +68,6 @@ class NavigationBar extends Component {
               </NavItem>
               <NavItem>
                 {this.props.userId ? (
-                  // <Button onClick={this.handleLogout}>Logout</Button>
                   <NavLink
                     style={linkStyle}
                     onClick={this.handleLogout}
