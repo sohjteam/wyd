@@ -1,4 +1,6 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {logOut} from '../store/user'
 import {
   Collapse,
   Navbar,
@@ -6,7 +8,8 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink
+  NavLink,
+  Button
 } from 'reactstrap'
 
 const barStyle = {
@@ -21,17 +24,24 @@ const linkStyle = {
 class NavigationBar extends Component {
   constructor(props) {
     super(props)
-
-    this.toggle = this.toggle.bind(this)
     this.state = {
       isOpen: false
     }
+
+    this.toggle = this.toggle.bind(this)
+    this.handleLogout = this.handleLogout.bind(this)
   }
+
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen
     })
   }
+
+  handleLogout() {
+    this.props.logout()
+  }
+
   render() {
     return (
       <div>
@@ -58,9 +68,20 @@ class NavigationBar extends Component {
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink style={linkStyle} href="/login">
-                  Login
-                </NavLink>
+                {this.props.userId ? (
+                  // <Button onClick={this.handleLogout}>Logout</Button>
+                  <NavLink
+                    style={linkStyle}
+                    onClick={this.handleLogout}
+                    href="/login"
+                  >
+                    Logout
+                  </NavLink>
+                ) : (
+                  <NavLink style={linkStyle} href="/login">
+                    Login
+                  </NavLink>
+                )}
               </NavItem>
             </Nav>
           </Collapse>
@@ -70,4 +91,12 @@ class NavigationBar extends Component {
   }
 }
 
-export default NavigationBar
+const mapStateToProps = state => ({
+  userId: state.user.id
+})
+
+const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(logOut())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavigationBar)
