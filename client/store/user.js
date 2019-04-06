@@ -17,7 +17,7 @@ const initialState = {
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
-    dispatch(getUser(res.data || initialState.user))
+    dispatch(getUser(res.data || initialState))
   } catch (error) {
     console.error(error)
   }
@@ -72,7 +72,7 @@ export const createUser = (
 export const getMyFriends = userId => async dispatch => {
   try {
     const res = await axios.get(`/api/users/${userId}/friends`)
-    dispatch(getFriends(res.data))
+    dispatch(getFriends(res.data.friend))
   } catch (error) {
     console.error(error)
   }
@@ -83,8 +83,7 @@ export default function(state = initialState, action) {
     case GET_USER:
       return {...state, user: action.user}
     case GET_FRIENDS:
-      console.log('MYFRIENDS', action.friends.friend)
-      return {...state, friends: action.friends.friend}
+      return {...state, friends: action.friends}
     case REMOVE_USER:
       return initialState
     default:

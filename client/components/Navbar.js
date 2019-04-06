@@ -90,7 +90,7 @@ class NavigationBar extends Component {
 }
 
 const mapStateToProps = state => ({
-  userId: state.user.id
+  userId: state.user.user.id
 })
 
 const mapDispatchToProps = dispatch => ({

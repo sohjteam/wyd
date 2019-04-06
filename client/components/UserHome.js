@@ -14,9 +14,10 @@ class UserHome extends Component {
     if (!this.props.myEvents) {
       this.props.myEvents = []
     }
-    // if (!this.props.myFriends) {
-    //   this.props.myFriends = []
-    // }
+    if (!this.props.myFriends) {
+      this.props.myFriends = []
+    }
+
     let user = this.props.user
     return (
       <>
@@ -32,8 +33,11 @@ class UserHome extends Component {
               <h1>Email: {user.email}</h1>
               <h1>
                 Friends:
-                {console.log(this.props.myFriends)}
-                {/* {this.props.myFriends.map(friend => <p>{friend}</p>)} */}
+                {this.props.myFriends.map(friend => (
+                  <p key={friend.id}>
+                    Name: {friend.firstName} {friend.lastName}
+                  </p>
+                ))}
               </h1>
             </div>
             <div id="userEvents">
@@ -55,13 +59,11 @@ class UserHome extends Component {
 }
 
 const mapStateToProps = state => ({
-  userId: state.user.id,
+  userId: state.user.user.id,
   myEvents: state.events.myEvents,
-  user: state.user
-  // myFriends: state.user.friends
+  user: state.user.user,
+  myFriends: state.user.friends
 })
-
-// const mapStateToProps = state => console.log('STTTATTTEEE', state.user)
 
 const mapDispatchToProps = dispatch => ({
   me: () => dispatch(me()),
