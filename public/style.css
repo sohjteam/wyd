@@ -1,0 +1,12 @@
+#profile {
+  border: 2px solid black;
+  width: 40%;
+}
+#userEvents {
+  border: 2px solid red;
+  width: 60%;
+}
+.title {
+}
+.header {
+}

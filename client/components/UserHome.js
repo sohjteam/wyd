@@ -24,29 +24,38 @@ class UserHome extends Component {
         <Container>
           <Row>
             <div id="profile">
-              <Col xs="3">Profile</Col>
-              <img src={user.image} width="150" />
-              <h1>
-                {' '}
-                Name: {user.firstName} {user.lastName}
-              </h1>
-              <h1>Email: {user.email}</h1>
-              <h1>
-                Friends:
+              <Col s="auto">
+                <h1>Profile</h1>
+
+                <img src={user.image} width="150" />
+                <h1 className="header"> Name:</h1>
+                <p>
+                  {user.firstName} {user.lastName}
+                </p>
+                <h1 className="header">Email: </h1>
+                <p>{user.email}</p>
+
+                <h1 className="header">Friends:</h1>
                 {this.props.myFriends.map(friend => (
-                  <p key={friend.id}>
-                    Name: {friend.firstName} {friend.lastName}
-                  </p>
+                  <>
+                    <h1 key={friend.id}>Name:</h1>
+                    <p>
+                      {' '}
+                      {friend.firstName} {friend.lastName}
+                    </p>
+                  </>
                 ))}
-              </h1>
+              </Col>
             </div>
             <div id="userEvents">
-              <Col xs="auto">
-                My Events
+              <Col s="auto">
+                <h1>My Events</h1>
                 {this.props.myEvents.map(event => (
                   <div key={event.id}>
-                    <h1>Event: {event.name}</h1>
-                    <h1>Event Type: {event.type}</h1>
+                    <h1 className="header">Event: </h1>
+                    <p>{event.name}</p>
+                    <h1 className="header">Event Type: </h1>
+                    <p>{event.type}</p>
                   </div>
                 ))}
               </Col>
