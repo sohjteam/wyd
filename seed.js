@@ -8,21 +8,18 @@ const users = [
   {
     firstName: 'Bob',
     lastName: 'Smith',
-    image: '',
     email: 'bob@email.com',
     password: '123'
   },
   {
     firstName: 'Phil',
     lastName: 'Dumphy',
-    image: '',
     email: 'phil@email.com',
     password: '123'
   },
   {
     firstName: 'Latte',
     lastName: 'Zhao',
-    image: '',
     email: 'latte@email.com',
     password: '123'
   }

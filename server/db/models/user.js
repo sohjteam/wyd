@@ -19,7 +19,7 @@ const User = db.define('user', {
   },
   image: {
     type: Sequelize.STRING,
-    defaultValue: ''
+    defaultValue: 'wydIcon.png'
   },
   email: {
     type: Sequelize.STRING,
