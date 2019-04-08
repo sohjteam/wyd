@@ -1,19 +1,14 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getMyEvents} from '../store/events'
 import {me, getMyFriends} from '../store/user'
 import {Container, Row, Col} from 'reactstrap'
 
 class UserHome extends Component {
   componentDidMount() {
-    this.props.getMyEvents(this.props.userId)
     this.props.getMyFriends(this.props.userId)
   }
 
   render() {
-    if (!this.props.myEvents) {
-      this.props.myEvents = []
-    }
     if (!this.props.myFriends) {
       this.props.myFriends = []
     }
@@ -25,7 +20,7 @@ class UserHome extends Component {
           <Row>
             <div id="profile">
               <Col s="auto">
-                <h1>Profile</h1>
+                <h1 className="title">Profile</h1>
 
                 <img src={user.image} width="150" />
                 <h1 className="header"> Name:</h1>
@@ -47,19 +42,6 @@ class UserHome extends Component {
                 ))}
               </Col>
             </div>
-            <div id="userEvents">
-              <Col s="auto">
-                <h1>My Events</h1>
-                {this.props.myEvents.map(event => (
-                  <div key={event.id}>
-                    <h1 className="header">Event: </h1>
-                    <p>{event.name}</p>
-                    <h1 className="header">Event Type: </h1>
-                    <p>{event.type}</p>
-                  </div>
-                ))}
-              </Col>
-            </div>
           </Row>
         </Container>
       </>
@@ -69,14 +51,12 @@ class UserHome extends Component {
 
 const mapStateToProps = state => ({
   userId: state.user.user.id,
-  myEvents: state.events.myEvents,
   user: state.user.user,
   myFriends: state.user.friends
 })
 
 const mapDispatchToProps = dispatch => ({
   me: () => dispatch(me()),
-  getMyEvents: userId => dispatch(getMyEvents(userId)),
   getMyFriends: userId => dispatch(getMyFriends(userId))
 })
 
