@@ -27,7 +27,7 @@ export const logOut = () => async dispatch => {
   try {
     await axios.post('/auth/logout')
     dispatch(removeUser())
-    history.push('/')
+    history.push('/login')
   } catch (error) {
     console.error(error)
   }

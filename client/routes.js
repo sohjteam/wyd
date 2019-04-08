@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
-import {Login, UserHome, Signup} from './components'
+import {Login, UserHome, Signup, Events, Groups, NotFound} from './components'
 import {me} from './store'
 
 class Routes extends Component {
@@ -15,14 +15,19 @@ class Routes extends Component {
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
-        </Switch>
 
-        {isLoggedIn && (
-          //only avaliable after user logs in
-          <Switch>
-            <Route exact path="/userhome" component={UserHome} />
-          </Switch>
-        )}
+          {isLoggedIn && (
+            //only avaliable after user logs in
+            <Switch>
+              <Route exact path="/" component={UserHome} />
+              <Route exact path="/userhome" component={UserHome} />
+              <Route exact path="/events" component={Events} />
+              <Route exact path="/groups" component={Groups} />
+              <Route exact path="*" component={NotFound} />
+            </Switch>
+          )}
+          <Route exact path="*" component={Login} />
+        </Switch>
       </>
     )
   }
