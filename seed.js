@@ -47,13 +47,11 @@ const friends = [
 const groups = [
   {
     name: 'Da Business',
-    password: '123',
-    image: ''
+    password: '123'
   },
   {
     name: 'Da Computer',
-    password: '123',
-    image: ''
+    password: '123'
   }
 ]
 

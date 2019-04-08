@@ -14,7 +14,7 @@ const Group = db.define('group', {
   },
   image: {
     type: Sequelize.STRING,
-    defaultValue: ''
+    defaultValue: 'wydIcon.png'
   },
   salt: {
     type: Sequelize.STRING,
