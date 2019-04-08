@@ -1,23 +1,41 @@
-{
-  /* <div id="userEvents">
-              <Col s="auto">
-                <h1 className="title">My Events</h1>
-                {this.props.myEvents.map(event => (
-                  <div key={event.id}>
-                    <h1 className="header">Event: </h1>
-                    <p>{event.name}</p>
-                    <h1 className="header">Event Type: </h1>
-                    <p>{event.type}</p>
-                  </div>
-                ))}
-              </Col>
-            </div> */
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {getMyEvents} from '../store/events'
+
+class Events extends Component {
+  componentDidMount() {
+    this.props.getMyEvents(this.props.userId)
+  }
+
+  render() {
+    console.log('HII', this.props.myEvents)
+    if (!this.props.myEvents) {
+      this.props.myEvents = []
+    }
+
+    return (
+      <>
+        <div id="userEvents">
+          <h1 className="title">My Events</h1>
+          {this.props.myEvents.map(event => (
+            <div key={event.id}>
+              <h1 className="header">Event: </h1>
+              <p>{event.name}</p>
+              <h1 className="header">Event Type: </h1>
+              <p>{event.type}</p>
+            </div>
+          ))}
+        </div>
+      </>
+    )
+  }
 }
 
-// this.props.getMyEvents(this.props.userId)
-// if (!this.props.myEvents) {
-//   this.props.myEvents = []
-// }
-
-// myEvents: state.events.myEvents,
-// getMyEvents: userId => dispatch(getMyEvents(userId)),
+const mapStateToProps = state => ({
+  userId: state.user.user.id,
+  myEvents: state.events.myEvents
+})
+const mapDispatchToProps = dispatch => ({
+  getMyEvents: userId => dispatch(getMyEvents(userId))
+})
+export default connect(mapStateToProps, mapDispatchToProps)(Events)
