@@ -8,7 +8,6 @@ class Events extends Component {
   }
 
   render() {
-    console.log('HII', this.props.myEvents)
     if (!this.props.myEvents) {
       this.props.myEvents = []
     }
