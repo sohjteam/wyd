@@ -1,7 +1,15 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
-import {Login, UserHome, Signup, Events, Groups, NotFound} from './components'
+import {
+  Login,
+  UserHome,
+  Signup,
+  Events,
+  Groups,
+  NotFound,
+  SingleGroup
+} from './components'
 import {me} from './store'
 
 class Routes extends Component {
@@ -19,6 +27,7 @@ class Routes extends Component {
             <Route exact path="/userhome" component={UserHome} />
             <Route exact path="/events" component={Events} />
             <Route exact path="/groups" component={Groups} />
+            <Route exact path="/groups/:id" component={SingleGroup} />
             <Route path="*" component={NotFound} />
           </Switch>
         ) : (

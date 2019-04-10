@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 import groups, {getMyGroups} from '../store/groups'
 import {Container, Row, Col} from 'reactstrap'
 
@@ -20,8 +21,10 @@ class Groups extends Component {
           {this.props.myGroups.map(group => (
             <div key={group.id}>
               <h1 className="header">Group: </h1>
-              <img src={group.image} width="150" />
-              <p>{group.name}</p>
+              <Link to={`/groups/${group.id}`}>
+                <img src={group.image} width="150" />
+                <p>{group.name}</p>
+              </Link>
             </div>
           ))}
         </Col>
