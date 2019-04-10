@@ -12,22 +12,22 @@ class Routes extends Component {
     const {isLoggedIn} = this.props
     return (
       <>
-        <Switch>
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/signup" component={Signup} />
-
-          {isLoggedIn && (
-            //only avaliable after user logs in
-            <Switch>
-              <Route exact path="/" component={UserHome} />
-              <Route exact path="/userhome" component={UserHome} />
-              <Route exact path="/events" component={Events} />
-              <Route exact path="/groups" component={Groups} />
-              <Route exact path="*" component={NotFound} />
-            </Switch>
-          )}
-          <Route exact path="*" component={Login} />
-        </Switch>
+        {isLoggedIn ? (
+          //only avaliable after user logs in
+          <Switch>
+            <Route exact path="/" component={UserHome} />
+            <Route exact path="/userhome" component={UserHome} />
+            <Route exact path="/events" component={Events} />
+            <Route exact path="/groups" component={Groups} />
+            <Route path="*" component={NotFound} />
+          </Switch>
+        ) : (
+          <Switch>
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={Signup} />
+            {/* <Route path="*" component={Login} /> */}
+          </Switch>
+        )}
       </>
     )
   }

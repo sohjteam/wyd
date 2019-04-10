@@ -71,7 +71,7 @@ class NavigationBar extends Component {
                   <NavLink
                     style={linkStyle}
                     onClick={this.handleLogout}
-                    href="/login"
+                    href="#"
                   >
                     Logout
                   </NavLink>
