@@ -47,7 +47,6 @@ export default function(state = initialState, action) {
     case GET_GROUP_EVENTS:
       return {...state, groupEvents: action.groupEvents}
     case ADD_NEW_EVENT:
-      console.log('HEEEEE', action.newEvent)
       return {...state, myEvents: [...state.myEvents, action.newEvent]}
     default:
       return state

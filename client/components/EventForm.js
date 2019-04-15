@@ -1,21 +1,23 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {addNewEvent} from '../store/events'
+import {addNewEvent, getMyEvents} from '../store/events'
 import {Form, FormGroup, Label, Input, Button} from 'reactstrap'
 
 class EventForm extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       name: '',
       type: '',
       startDate: '',
       time: '',
       location: '',
-      url: ''
+      url: '',
+      groupId: this.props.groupId
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    console.log('PROPS', props)
   }
 
   componentDidMount() {
@@ -29,8 +31,8 @@ class EventForm extends Component {
   }
   handleSubmit = evt => {
     evt.preventDefault()
-    const {name, type, startDate, time, location, url} = this.state
-    const newEvent = {name, type, startDate, time, location, url}
+    const {name, type, startDate, time, location, url, groupId} = this.state
+    const newEvent = {name, type, startDate, time, location, url, groupId}
     this.props.addNewEvent(newEvent)
   }
 
@@ -107,8 +109,13 @@ class EventForm extends Component {
     )
   }
 }
+const mapStateToProps = state => ({
+  userId: state.user.user.id,
 
+  myEvents: state.events.myEvents
+})
 const mapDispatchToProps = dispatch => ({
+  getMyEvents: userId => dispatch(getMyEvents(userId)),
   addNewEvent: newEvent => dispatch(addNewEvent(newEvent))
 })
-export default connect(null, mapDispatchToProps)(EventForm)
+export default connect(mapStateToProps, mapDispatchToProps)(EventForm)
