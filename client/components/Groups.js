@@ -28,10 +28,9 @@ class Groups extends Component {
   }
 
   toggle() {
-    // event.preventDefault()
-    this.setState({
-      modal: !this.state.modale
-    })
+    this.setState(prevState => ({
+      modal: !prevState.modal
+    }))
   }
   render() {
     if (!this.props.myGroups) {
