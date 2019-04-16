@@ -37,6 +37,5 @@ const mapStateToProps = state => ({
 })
 const mapDispatchToProps = dispatch => ({
   getMyEvents: userId => dispatch(getMyEvents(userId))
-  // getEventGroup: eventId => dispatch(getEventGroup(eventId))
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Events)
