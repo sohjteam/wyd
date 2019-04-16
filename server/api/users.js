@@ -67,7 +67,8 @@ router.get('/:id/events', isAuthenticated, async (req, res, next) => {
     const events = await User.findById(userId, {
       include: [
         {
-          model: Event
+          model: Event,
+          include: [Group]
         }
       ]
     })

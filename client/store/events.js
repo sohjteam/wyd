@@ -48,6 +48,7 @@ export default function(state = initialState, action) {
       return {...state, groupEvents: action.groupEvents}
     case ADD_NEW_EVENT:
       return {...state, myEvents: [...state.myEvents, action.newEvent]}
+
     default:
       return state
   }
