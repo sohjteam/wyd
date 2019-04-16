@@ -3,10 +3,12 @@ import axios from 'axios'
 const GET_MY_EVENTS = 'GET_MY_EVENTS'
 const GET_GROUP_EVENTS = 'GET_GROUP_EVENTS'
 const ADD_NEW_EVENT = 'ADD_NEW_EVENT'
+const GET_EVENT_GROUP = 'GET_EVENT_GROUP'
 
 const gotMyEvents = myEvents => ({type: GET_MY_EVENTS, myEvents})
 const gotGroupEvents = groupEvents => ({type: GET_GROUP_EVENTS, groupEvents})
 const addedEvent = newEvent => ({type: ADD_NEW_EVENT, newEvent})
+// const gotEventGroup = eventGroup => ({type: GET_EVENT_GROUP, eventGroup})
 
 const initialState = {
   myEvents: [],
@@ -40,6 +42,15 @@ export const addNewEvent = newEvent => async dispatch => {
   }
 }
 
+// export const getEventGroup = eventId => async dispatch => {
+//   try {
+//     const res = await axios.get(`/api/events/${eventId}/group`)
+//     dispatch(gotEventGroup(res.data.group))
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }
+
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_MY_EVENTS:
@@ -48,6 +59,7 @@ export default function(state = initialState, action) {
       return {...state, groupEvents: action.groupEvents}
     case ADD_NEW_EVENT:
       return {...state, myEvents: [...state.myEvents, action.newEvent]}
+
     default:
       return state
   }
