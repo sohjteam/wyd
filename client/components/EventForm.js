@@ -17,7 +17,6 @@ class EventForm extends Component {
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
-    console.log('PROPS', props)
   }
 
   componentDidMount() {

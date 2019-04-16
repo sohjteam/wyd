@@ -2,15 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {getMyGroups} from '../store/groups'
-import {
-  Container,
-  Col,
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter
-} from 'reactstrap'
+import {Container, Col, Button, Modal, ModalHeader, ModalBody} from 'reactstrap'
 import EventForm from './EventForm'
 
 class Groups extends Component {
@@ -36,7 +28,6 @@ class Groups extends Component {
     if (!this.props.myGroups) {
       this.props.myGroups = []
     }
-    console.log('AYO', this.state.modal)
     return (
       <Container>
         <Col s="auto">
