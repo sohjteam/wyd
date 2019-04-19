@@ -1,16 +1,40 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import SingleGroup from './SingleGroup'
 import {getMyGroups} from '../store/groups'
-import {Container, Col} from 'reactstrap'
+import {
+  Container,
+  Col,
+  TabContent,
+  TabPane,
+  Nav,
+  NavItem,
+  NavLink,
+  Row
+} from 'reactstrap'
+import classnames from 'classnames'
 
 class Groups extends Component {
   constructor(props) {
     super(props)
+
+    this.toggle = this.toggle.bind(this)
+    this.state = {
+      activeTab: 'all'
+    }
   }
 
   componentDidMount() {
     this.props.getMyGroups(this.props.userId)
+  }
+
+  toggle(tab) {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab
+      })
+    }
   }
 
   render() {
@@ -18,20 +42,57 @@ class Groups extends Component {
       this.props.myGroups = []
     }
     return (
-      <Container>
-        <Col s="auto">
-          <h1 className="title">My Groups</h1>
+      <div>
+        <Nav tabs>
+          <NavItem>
+            <NavLink
+              className={classnames({active: this.state.activeTab === 'all'})}
+              onClick={() => {
+                this.toggle('all')
+              }}
+            >
+              All
+            </NavLink>
+          </NavItem>
           {this.props.myGroups.map(group => (
-            <div key={group.id}>
-              <h1 className="header">Group: </h1>
-              <Link to={`/groups/${group.id}`}>
-                <img src={group.image} width="150" />
-                <p>{group.name}</p>
-              </Link>
-            </div>
+            <NavItem>
+              <NavLink
+                className={classnames({
+                  active: this.state.activeTab === group.id
+                })}
+                onClick={() => {
+                  this.toggle(group.id)
+                }}
+              >
+                {group.name}
+              </NavLink>
+            </NavItem>
           ))}
-        </Col>
-      </Container>
+        </Nav>
+        <TabContent activeTab={this.state.activeTab}>
+          <TabPane tabId="all">
+            <Container>
+              <Col s="auto">
+                <h1 className="title">My Groups</h1>
+                {this.props.myGroups.map(group => (
+                  <div key={group.id}>
+                    <h1 className="header">Group: </h1>
+                    {/* <Link to={`/groups/${group.id}`}> */}
+                    <img src={group.image} width="150" />
+                    <p>{group.name}</p>
+                    {/* </Link> */}
+                  </div>
+                ))}
+              </Col>
+            </Container>
+          </TabPane>
+          {this.props.myGroups.map(group => (
+            <TabPane tabId={group.id}>
+              <SingleGroup groupId={group.id} />
+            </TabPane>
+          ))}
+        </TabContent>
+      </div>
     )
   }
 }

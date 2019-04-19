@@ -39,7 +39,7 @@ class SingleGroup extends Component {
   }
 
   componentDidMount() {
-    const groupId = this.props.match.params.id
+    const groupId = this.props.groupId
     this.props.getGroup(groupId)
     this.props.getEvents(groupId)
   }
