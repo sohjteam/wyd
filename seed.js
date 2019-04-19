@@ -9,19 +9,22 @@ const users = [
     firstName: 'Bob',
     lastName: 'Smith',
     email: 'bob@email.com',
-    password: '123'
+    password: '123',
+    image: 'bob.jpeg'
   },
   {
     firstName: 'Phil',
     lastName: 'Dumphy',
     email: 'phil@email.com',
-    password: '123'
+    password: '123',
+    image: 'phil.jpeg'
   },
   {
     firstName: 'Latte',
     lastName: 'Zhao',
     email: 'latte@email.com',
-    password: '123'
+    password: '123',
+    image: 'latte.jpeg'
   }
 ]
 
@@ -47,11 +50,13 @@ const friends = [
 const groups = [
   {
     name: 'Da Business',
-    password: '123'
+    password: '123',
+    image: 'dabusiness.jpeg'
   },
   {
     name: 'Da Computer',
-    password: '123'
+    password: '123',
+    image: 'dacomputer.jpeg'
   }
 ]
 
