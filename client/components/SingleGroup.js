@@ -44,7 +44,6 @@ class SingleGroup extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    // Typical usage (don't forget to compare props):
     if (this.props.groupId !== prevProps.groupId) {
       this.props.getGroup(this.props.groupId)
       this.props.getEvents(this.props.groupId)
@@ -90,10 +89,9 @@ class SingleGroup extends Component {
                 defaultDate={new Date()}
                 defaultView="month"
                 events={this.props.events.map(event => ({
-                  start: event.startDate,
-                  end: event.endDate,
-                  time: event.time,
-                  title: event.name
+                  title: event.name,
+                  start: new Date(Date.parse(event.startDate)),
+                  end: new Date(Date.parse(event.endDate))
                 }))}
                 style={{height: '80vh'}}
               />

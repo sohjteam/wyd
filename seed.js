@@ -66,9 +66,8 @@ const events = [
     type: 'Study Group',
     link: '',
     location: 'some cafe',
-    startDate: '2019-03-17',
-    endDate: '2019-03-17',
-    time: '12:00',
+    startDate: new Date(2019, 3, 12, 10, 30, 0, 0),
+    endDate: new Date(2019, 3, 12, 12, 30, 0, 0),
     groupId: 1
   },
   {
@@ -76,7 +75,6 @@ const events = [
     type: 'Meet Up',
     link: '',
     location: 'NYC',
-    time: '6:30',
     groupId: 1
   },
   {
@@ -84,8 +82,8 @@ const events = [
     type: 'Study Group',
     link: '',
     location: 'my house',
-    startDate: '2019-04-19',
-    endDate: '2019-04-20',
+    startDate: new Date(2019, 3, 20, 10, 30, 0, 0),
+    endDate: new Date(2019, 3, 20, 15, 30, 0, 0),
     groupId: 2
   }
 ]
