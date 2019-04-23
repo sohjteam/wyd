@@ -8,23 +8,23 @@ const users = [
   {
     firstName: 'Bob',
     lastName: 'Smith',
-    image: '',
     email: 'bob@email.com',
-    password: '123'
+    password: '123',
+    image: 'bob.jpeg'
   },
   {
     firstName: 'Phil',
     lastName: 'Dumphy',
-    image: '',
     email: 'phil@email.com',
-    password: '123'
+    password: '123',
+    image: 'phil.jpeg'
   },
   {
     firstName: 'Latte',
     lastName: 'Zhao',
-    image: '',
     email: 'latte@email.com',
-    password: '123'
+    password: '123',
+    image: 'latte.jpeg'
   }
 ]
 
@@ -51,12 +51,12 @@ const groups = [
   {
     name: 'Da Business',
     password: '123',
-    image: ''
+    image: 'dabusiness.jpeg'
   },
   {
     name: 'Da Computer',
     password: '123',
-    image: ''
+    image: 'dacomputer.jpeg'
   }
 ]
 
@@ -66,8 +66,8 @@ const events = [
     type: 'Study Group',
     link: '',
     location: 'some cafe',
-    startDate: '2019-03-17',
-    time: '12:00',
+    startDate: new Date(2019, 3, 12, 10, 30, 0, 0),
+    endDate: new Date(2019, 3, 12, 12, 30, 0, 0),
     groupId: 1
   },
   {
@@ -75,7 +75,6 @@ const events = [
     type: 'Meet Up',
     link: '',
     location: 'NYC',
-    time: '6:30',
     groupId: 1
   },
   {
@@ -83,7 +82,8 @@ const events = [
     type: 'Study Group',
     link: '',
     location: 'my house',
-    startDate: '2019-03-19',
+    startDate: new Date(2019, 3, 20, 10, 30, 0, 0),
+    endDate: new Date(2019, 3, 20, 15, 30, 0, 0),
     groupId: 2
   }
 ]

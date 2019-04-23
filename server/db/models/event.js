@@ -23,12 +23,12 @@ const Event = db.define('event', {
     }
   },
   startDate: {
-    type: Sequelize.DATEONLY,
+    type: Sequelize.DATE,
     allowNull: false,
     defaultValue: Sequelize.NOW
   },
-  time: {
-    type: Sequelize.TIME,
+  endDate: {
+    type: Sequelize.DATE,
     allowNull: false,
     defaultValue: Sequelize.NOW
   }
