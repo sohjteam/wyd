@@ -67,6 +67,7 @@ const events = [
     link: '',
     location: 'some cafe',
     startDate: '2019-03-17',
+    endDate: '2019-03-17',
     time: '12:00',
     groupId: 1
   },
@@ -83,7 +84,8 @@ const events = [
     type: 'Study Group',
     link: '',
     location: 'my house',
-    startDate: '2019-03-19',
+    startDate: '2019-04-19',
+    endDate: '2019-04-20',
     groupId: 2
   }
 ]

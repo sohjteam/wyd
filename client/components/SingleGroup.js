@@ -39,9 +39,16 @@ class SingleGroup extends Component {
   }
 
   componentDidMount() {
-    const groupId = this.props.groupId
-    this.props.getGroup(groupId)
-    this.props.getEvents(groupId)
+    this.props.getGroup(this.props.groupId)
+    this.props.getEvents(this.props.groupId)
+  }
+
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.props.groupId !== prevProps.groupId) {
+      this.props.getGroup(this.props.groupId)
+      this.props.getEvents(this.props.groupId)
+    }
   }
 
   toggle() {
@@ -65,7 +72,7 @@ class SingleGroup extends Component {
                 <Modal isOpen={this.state.modal} toggle={this.toggle}>
                   <ModalHeader toggle={this.toggle}>Add An Event!</ModalHeader>
                   <ModalBody>
-                    <EventForm groupId={group.id} />
+                    <EventForm groupId={this.props.groupId} />
                   </ModalBody>
                 </Modal>
               </Button>
@@ -84,7 +91,8 @@ class SingleGroup extends Component {
                 defaultView="month"
                 events={this.props.events.map(event => ({
                   start: event.startDate,
-                  end: event.startDate,
+                  end: event.endDate,
+                  time: event.time,
                   title: event.name
                 }))}
                 style={{height: '80vh'}}

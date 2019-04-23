@@ -70,27 +70,26 @@ class Groups extends Component {
           ))}
         </Nav>
         <TabContent activeTab={this.state.activeTab}>
-          <TabPane tabId="all">
-            <Container>
-              <Col s="auto">
-                <h1 className="title">My Groups</h1>
-                {this.props.myGroups.map(group => (
-                  <div key={group.id}>
-                    <h1 className="header">Group: </h1>
-                    {/* <Link to={`/groups/${group.id}`}> */}
-                    <img src={group.image} width="150" />
-                    <p>{group.name}</p>
-                    {/* </Link> */}
-                  </div>
-                ))}
-              </Col>
-            </Container>
+          <TabPane tabId={this.state.activeTab}>
+            {this.state.activeTab !== 'all' ? (
+              <SingleGroup groupId={this.state.activeTab} />
+            ) : (
+              <Container>
+                <Col s="auto">
+                  <h1 className="title">My Groups</h1>
+                  {this.props.myGroups.map(group => (
+                    <div key={group.id}>
+                      <h1 className="header">Group: </h1>
+                      {/* <Link to={`/groups/${group.id}`}> */}
+                      <img src={group.image} width="150" />
+                      <p>{group.name}</p>
+                      {/* </Link> */}
+                    </div>
+                  ))}
+                </Col>
+              </Container>
+            )}
           </TabPane>
-          {this.props.myGroups.map(group => (
-            <TabPane tabId={group.id}>
-              <SingleGroup groupId={group.id} />
-            </TabPane>
-          ))}
         </TabContent>
       </div>
     )
