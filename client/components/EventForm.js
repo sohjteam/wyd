@@ -10,6 +10,7 @@ class EventForm extends Component {
       name: '',
       type: '',
       startDate: '',
+      endDate: '',
       time: '',
       location: '',
       url: '',
@@ -30,8 +31,26 @@ class EventForm extends Component {
   }
   handleSubmit = evt => {
     evt.preventDefault()
-    const {name, type, startDate, time, location, url, groupId} = this.state
-    const newEvent = {name, type, startDate, time, location, url, groupId}
+    const {
+      name,
+      type,
+      startDate,
+      endDate,
+      time,
+      location,
+      url,
+      groupId
+    } = this.state
+    const newEvent = {
+      name,
+      type,
+      startDate,
+      endDate,
+      time,
+      location,
+      url,
+      groupId
+    }
     this.props.addNewEvent(newEvent)
   }
 
@@ -66,11 +85,21 @@ class EventForm extends Component {
             </Input>
           </FormGroup>
           <FormGroup>
-            <Label for="eventDate">Date</Label>
+            <Label for="eventStartDate">Start Date</Label>
             <Input
               type="date"
               name="startDate"
-              id="eventDateText"
+              id="eventStartDateText"
+              placeholder="MM/DD/YY"
+              onChange={this.handleChange}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="eventEndDate">End Date</Label>
+            <Input
+              type="date"
+              name="endDate"
+              id="eventEndDateText"
               placeholder="MM/DD/YY"
               onChange={this.handleChange}
             />
