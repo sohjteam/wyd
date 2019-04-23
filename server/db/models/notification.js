@@ -12,6 +12,10 @@ const Notification = db.define('notification', {
   clear: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
+  },
+  status: {
+    type: Sequelize.ENUM('Accepted', 'Rejected', 'Pending'),
+    defaultValue: 'Pending'
   }
 })
 
