@@ -15,6 +15,15 @@ import {
 } from 'reactstrap'
 import classnames from 'classnames'
 
+const barStyle = {
+  backgroundColor: 'white',
+  fontFamily: ''
+}
+
+const linkStyle = {
+  color: '#b7d1e1'
+}
+
 class Groups extends Component {
   constructor(props) {
     super(props)
@@ -43,9 +52,11 @@ class Groups extends Component {
     }
     return (
       <div>
-        <Nav tabs>
+        <Nav tabs style={barStyle}>
           <NavItem>
             <NavLink
+              style={linkStyle}
+              href="#"
               className={classnames({active: this.state.activeTab === 'all'})}
               onClick={() => {
                 this.toggle('all')
@@ -57,6 +68,8 @@ class Groups extends Component {
           {this.props.myGroups.map(group => (
             <NavItem>
               <NavLink
+                style={linkStyle}
+                href="#"
                 className={classnames({
                   active: this.state.activeTab === group.id
                 })}
