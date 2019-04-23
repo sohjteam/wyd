@@ -1,6 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {createUser} from '../store/user'
+import {Container, Form, FormGroup, Col, Label, Button, Input} from 'reactstrap'
+
+const conStyle = {
+  marginTop: '20vh',
+  width: '40vw'
+}
 
 class Signup extends Component {
   constructor() {
@@ -30,35 +36,72 @@ class Signup extends Component {
   }
   render() {
     return (
-      <>
-        <form onSubmit={this.handleSubmit}>
-          <h1>Email:</h1>
-          <input
-            onChange={this.handleChange}
-            name="email"
-            value={this.state.email}
-          />
-          <h1>Password:</h1>
-          <input
-            onChange={this.handleChange}
-            name="password"
-            value={this.state.password}
-          />
-          <h1>First Name:</h1>
-          <input
-            onChange={this.handleChange}
-            name="firstName"
-            value={this.state.firstName}
-          />
-          <h1>Last Name:</h1>
-          <input
-            onChange={this.handleChange}
-            name="lastName"
-            value={this.state.lastName}
-          />
-          <button type="submit">Sign Up</button>
-        </form>
-      </>
+      <Container style={conStyle}>
+        <Form onSubmit={this.handleSubmit}>
+          <Col md={{size: 6, offset: 5}}>
+            <h2>Signup</h2>
+          </Col>
+          <FormGroup row>
+            <Label for="email" sm={3}>
+              Email
+            </Label>
+            <Col sm={9}>
+              <Input
+                type="email"
+                name="email"
+                id="email"
+                onChange={this.handleChange}
+                value={this.state.email}
+              />
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label for="password" sm={3}>
+              Password
+            </Label>
+            <Col sm={9}>
+              <Input
+                type="password"
+                name="password"
+                id="password"
+                onChange={this.handleChange}
+                value={this.state.password}
+              />
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label for="firstName" sm={3}>
+              First Name
+            </Label>
+            <Col sm={9}>
+              <Input
+                type="firstName"
+                name="firstName"
+                id="firstName"
+                onChange={this.handleChange}
+                value={this.state.firstName}
+              />
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label for="lastName" sm={3}>
+              Last Name
+            </Label>
+            <Col sm={9}>
+              <Input
+                type="lastName"
+                name="lastName"
+                id="lastName"
+                onChange={this.handleChange}
+                value={this.state.lastName}
+              />
+            </Col>
+          </FormGroup>
+          <Col md={{size: 6, offset: 5}}>
+            <Button>Submit</Button>
+          </Col>
+        </Form>
+      </Container>
     )
   }
 }
