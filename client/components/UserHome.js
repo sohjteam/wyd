@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {me, getMyFriends} from '../store/user'
 import {Container, Row, Col} from 'reactstrap'
+import Friends from './Friends'
 
 class UserHome extends Component {
   componentDidMount() {
@@ -31,15 +32,7 @@ class UserHome extends Component {
                 <p>{user.email}</p>
 
                 <h1 className="header">Friends:</h1>
-                {this.props.myFriends.map(friend => (
-                  <>
-                    <h1 key={friend.id}>Name:</h1>
-                    <p>
-                      {' '}
-                      {friend.firstName} {friend.lastName}
-                    </p>
-                  </>
-                ))}
+                <Friends />
               </Col>
             </div>
           </Row>
