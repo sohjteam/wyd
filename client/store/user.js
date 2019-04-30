@@ -55,14 +55,16 @@ export const createUser = (
   email,
   password,
   firstName,
-  lastName
+  lastName,
+  username
 ) => async dispatch => {
   try {
     const res = await axios.post('/auth/signup', {
       email,
       password,
       firstName,
-      lastName
+      lastName,
+      username
     })
     dispatch(getUser(res.data))
     history.push('/userhome')
