@@ -4,17 +4,20 @@ import history from '../history'
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
 const GET_FRIENDS = 'GET_FRIENDS'
-const ADD_FRIEND = 'ADD_FRIEND'
+const SEARCH_FRIEND = 'SEARCH_FRIEND'
+// const ADD_FRIEND = 'ADD_FRIEND'
 
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
 const getFriends = friends => ({type: GET_FRIENDS, friends})
+const searchUsername = username => ({type: SEARCH_FRIEND, username})
+// const addFriend = friend => ({type: ADD_FRIEND, friend})
 
 const initialState = {
   user: {},
-  friends: []
+  friends: [],
+  search: []
 }
-const addFriend = friend => ({type: ADD_FRIEND, friend})
 
 export const me = () => async dispatch => {
   try {
@@ -82,16 +85,16 @@ export const getMyFriends = userId => async dispatch => {
   }
 }
 
-// export const addNewFriend = friend => async dispatch => {
-//   try {
-//     console.log('YE', friend)
-//     const res = await axios.get('/api/users/')
-//     console.log('res.data', res.data)
-//     dispatch(addFriend(res.data))
-//   } catch (error) {
-//     console.error(error)
-//   }
-// }
+export const searchFriend = username => async dispatch => {
+  try {
+    console.log('YE', username)
+    const res = await axios.get(`/api/friend/${username}`)
+    console.log('res.data', res.data)
+    dispatch(searchUsername(res.data))
+  } catch (error) {
+    console.error(error)
+  }
+}
 
 export default function(state = initialState, action) {
   switch (action.type) {
@@ -99,8 +102,10 @@ export default function(state = initialState, action) {
       return {...state, user: action.user}
     case GET_FRIENDS:
       return {...state, friends: action.friends}
-    case ADD_FRIEND:
-      return {...state, friends: [...state.friends, action.friend]}
+    case SEARCH_FRIEND:
+      return {...state, search: action.username}
+    // case ADD_FRIEND:
+    //   return {...state, friends: [...state.friends, action.friend]}
     case REMOVE_USER:
       return initialState
     default:

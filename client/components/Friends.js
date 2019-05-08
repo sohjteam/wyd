@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getMyFriends, addNewFriend} from '../store/user'
+import {getMyFriends, searchFriend} from '../store/user'
 import {
   Button,
   Card,
@@ -17,7 +17,7 @@ class Friends extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      email: ''
+      username: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -34,7 +34,7 @@ class Friends extends Component {
 
   handleSubmit = evt => {
     evt.preventDefault()
-    this.props.addNewFriend(this.state.email)
+    this.props.searchFriend(this.state.username)
   }
 
   render() {
@@ -67,8 +67,8 @@ class Friends extends Component {
           <Label for="friendSearch">Search:</Label>
           <Input
             id="addFriend"
-            placeholder="Search Email"
-            name="email"
+            placeholder="Search Username"
+            name="username"
             onChange={this.handleChange}
           />
           <Button type="submit">Add Friend</Button>
@@ -79,13 +79,14 @@ class Friends extends Component {
 }
 
 const mapStateToProps = state => ({
+  search: state.user.search,
   friends: state.user.friends,
   userId: state.user.user.id
 })
 
 const mapDispatchToProps = dispatch => ({
   getMyFriends: userId => dispatch(getMyFriends(userId)),
-  addNewFriend: friend => dispatch(addNewFriend(friend))
+  searchFriend: username => dispatch(searchFriend(username))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Friends)
