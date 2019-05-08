@@ -8,6 +8,7 @@ const users = [
   {
     firstName: 'Bob',
     lastName: 'Smith',
+    username: 'bobbyboi',
     email: 'bob@email.com',
     password: '123',
     image: 'bob.jpeg'
@@ -15,6 +16,7 @@ const users = [
   {
     firstName: 'Phil',
     lastName: 'Dumphy',
+    username: 'pheel',
     email: 'phil@email.com',
     password: '123',
     image: 'phil.jpeg'
@@ -22,6 +24,7 @@ const users = [
   {
     firstName: 'Latte',
     lastName: 'Zhao',
+    username: 'lattegrandepls',
     email: 'latte@email.com',
     password: '123',
     image: 'latte.jpeg'

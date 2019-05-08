@@ -17,6 +17,14 @@ const User = db.define('user', {
       notEmpty: true
     }
   },
+  username: {
+    type: Sequelize.STRING,
+    unique: true,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
   image: {
     type: Sequelize.STRING,
     defaultValue: 'wydIcon.png'

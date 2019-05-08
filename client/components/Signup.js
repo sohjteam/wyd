@@ -15,7 +15,8 @@ class Signup extends Component {
       email: '',
       password: '',
       firstName: '',
-      lastName: ''
+      lastName: '',
+      username: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -32,7 +33,8 @@ class Signup extends Component {
     const password = event.target.password.value
     const firstName = event.target.firstName.value
     const lastName = event.target.lastName.value
-    this.props.createUser(email, password, firstName, lastName)
+    const username = event.target.username.value
+    this.props.createUser(email, password, firstName, lastName, username)
   }
   render() {
     return (
@@ -97,6 +99,20 @@ class Signup extends Component {
               />
             </Col>
           </FormGroup>
+          <FormGroup row>
+            <Label for="username" sm={3}>
+              Username
+            </Label>
+            <Col sm={9}>
+              <Input
+                type="username"
+                name="username"
+                id="username"
+                onChange={this.handleChange}
+                value={this.state.username}
+              />
+            </Col>
+          </FormGroup>
           <Col md={{size: 6, offset: 5}}>
             <Button>Submit</Button>
           </Col>
@@ -107,8 +123,8 @@ class Signup extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  createUser: (email, password, firstName, lastName) =>
-    dispatch(createUser(email, password, firstName, lastName))
+  createUser: (email, password, firstName, lastName, username) =>
+    dispatch(createUser(email, password, firstName, lastName, username))
 })
 
 export default connect(null, mapDispatchToProps)(Signup)
