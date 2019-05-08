@@ -3,6 +3,8 @@ const router = require('express').Router()
 router.use('/events', require('./events'))
 router.use('/groups', require('./groups'))
 router.use('/users', require('./users'))
+router.use('/friend', require('./friend'))
+
 // router.use('/notifications', require('./notifications'))
 
 router.use(next => {
