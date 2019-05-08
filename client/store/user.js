@@ -87,9 +87,7 @@ export const getMyFriends = userId => async dispatch => {
 
 export const searchFriend = username => async dispatch => {
   try {
-    console.log('YE', username)
     const res = await axios.get(`/api/friend/${username}`)
-    console.log('res.data', res.data)
     dispatch(searchUsername(res.data))
   } catch (error) {
     console.error(error)

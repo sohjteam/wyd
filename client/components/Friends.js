@@ -10,17 +10,20 @@ import {
   CardTitle,
   Form,
   Label,
-  Input
+  Input,
+  Collapse
 } from 'reactstrap'
 
 class Friends extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      username: ''
+      username: '',
+      collapse: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.toggle = this.toggle.bind(this)
   }
 
   componentDidMount() {
@@ -35,6 +38,10 @@ class Friends extends Component {
   handleSubmit = evt => {
     evt.preventDefault()
     this.props.searchFriend(this.state.username)
+  }
+
+  toggle() {
+    this.setState(state => ({collapse: !state.collapse}))
   }
 
   render() {
@@ -71,7 +78,23 @@ class Friends extends Component {
             name="username"
             onChange={this.handleChange}
           />
-          <Button type="submit">Add Friend</Button>
+          <Button type="submit" onClick={this.toggle}>
+            Search Friend
+          </Button>
+          <Collapse isOpen={this.state.collapse}>
+            <Card>
+              <CardBody>
+                {this.props.search.map(user => (
+                  <>
+                    <img src={user.image} width="110" />
+                    <p>
+                      {user.firstName} {user.lastName}
+                    </p>
+                  </>
+                ))}
+              </CardBody>
+            </Card>
+          </Collapse>
         </Form>
       </>
     )
