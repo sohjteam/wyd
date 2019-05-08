@@ -9,6 +9,9 @@ const Notification = db.define('notification', {
       notEmpty: true
     }
   },
+  invite: {
+    type: Sequelize.ENUM('group', 'event', 'friend')
+  },
   clear: {
     type: Sequelize.BOOLEAN,
     defaultValue: false

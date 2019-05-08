@@ -8,10 +8,22 @@ const isLoggedIn = (req, res, next) => {
   res.redirect('/')
 }
 
-router.post('/:id', isLoggedIn, async (req, res, next) => {
+router.post('/', isLoggedIn, async (req, res, next) => {
   try {
     const notif = await Notification.create(req.body)
     res.json(notif)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete('/:id', isLoggedIn, async (req, res, next) => {
+  try {
+    const notif = await Notification.findById(req.params.id)
+    if (req.user.dataValues.id === Number(notif.userId)) {
+      const data = await Notification.destroy({where: {id: req.params.id}})
+      res.json(data)
+    }
   } catch (error) {
     next(error)
   }
