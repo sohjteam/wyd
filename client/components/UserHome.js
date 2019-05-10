@@ -17,22 +17,26 @@ class UserHome extends Component {
     let user = this.props.user
     return (
       <>
-        <Container>
+        <Container id="userHome">
           <Row>
             <div id="profile">
               <Col s="auto">
-                <h1 className="title">Profile</h1>
+                <div className="circle_image">
+                  <img src={user.image} id="myProPic" />
+                </div>
+                <div className="userInfo">
+                  <h3 className="header"> Name:</h3>
+                  <p>
+                    {user.firstName} {user.lastName}
+                  </p>
+                  <h3 className="header"> Username:</h3>
+                  <p>{user.username}</p>
 
-                <img src={user.image} width="150" />
-                <h1 className="header"> Name:</h1>
-                <p>
-                  {user.firstName} {user.lastName}
-                </p>
-                <h1 className="header">Email: </h1>
-                <p>{user.email}</p>
-
-                <h1 className="header">Friends:</h1>
-                <Friends />
+                  <h3 className="header">Email: </h3>
+                  <p>{user.email}</p>
+                  <h3 className="header">Friends:</h3>
+                  <Friends />
+                </div>
               </Col>
             </div>
           </Row>

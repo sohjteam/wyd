@@ -1,12 +1,43 @@
+#userHome {
+  display: flex;
+  font-family: futura-pt, sans-serif;
+}
 #profile {
-  border: 2px solid black;
-  width: 40%;
+  position: relative;
+  border: 2px solid #dddddd;
+  text-align: center;
+  width: 100%;
 }
 #userEvents {
   border: 2px solid red;
-  width: 60%;
+}
+.circle_image {
+  display: inline-block;
+  position: relative;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin: 15% auto 15% auto;
+  border: 4px solid #b6d2e4;
+}
+
+#myProPic {
+  width: 100%;
+  height: auto;
+}
+
+.userInfo {
+  text-align: left;
+  display: inline;
+  vertical-align: top;
+}
+.info {
+  font-weight: 300px;
 }
 .title {
 }
 .header {
+  font-style: normal;
+  font-weight: 500;
 }
