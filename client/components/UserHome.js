@@ -19,8 +19,8 @@ class UserHome extends Component {
       <>
         <Container id="userHome">
           <Row>
-            <div id="profile">
-              <Col s="auto">
+            <Col xs="6">
+              <div id="profile">
                 <div className="circle_image">
                   <img src={user.image} id="myProPic" />
                 </div>
@@ -38,11 +38,16 @@ class UserHome extends Component {
                   <p className="info">{user.email}</p>
                   <br />
                   <h3 className="header">Friends:</h3>
-
                   <Friends />
                 </div>
-              </Col>
-            </div>
+              </div>
+            </Col>
+
+            <Col xs="6">
+              <div id="notifs">
+                <p>notifs</p>
+              </div>
+            </Col>
           </Row>
         </Container>
       </>
