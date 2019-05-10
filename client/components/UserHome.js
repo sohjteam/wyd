@@ -38,6 +38,7 @@ class UserHome extends Component {
                   <p className="info">{user.email}</p>
                   <br />
                   <h3 className="header">Friends:</h3>
+
                   <Friends />
                 </div>
               </Col>
