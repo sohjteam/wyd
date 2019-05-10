@@ -24,16 +24,19 @@ class UserHome extends Component {
                 <div className="circle_image">
                   <img src={user.image} id="myProPic" />
                 </div>
+
                 <div className="userInfo">
-                  <h3 className="header"> Name:</h3>
-                  <p>
+                  <h3 className="header"> Name: </h3>
+                  <p className="info">
                     {user.firstName} {user.lastName}
                   </p>
-                  <h3 className="header"> Username:</h3>
-                  <p>{user.username}</p>
-
+                  <br />
+                  <h3 className="header"> Username: </h3>
+                  <p className="info">{user.username}</p>
+                  <br />
                   <h3 className="header">Email: </h3>
-                  <p>{user.email}</p>
+                  <p className="info">{user.email}</p>
+                  <br />
                   <h3 className="header">Friends:</h3>
                   <Friends />
                 </div>

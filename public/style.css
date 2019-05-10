@@ -26,18 +26,20 @@
   width: 100%;
   height: auto;
 }
-
 .userInfo {
   text-align: left;
-  display: inline;
-  vertical-align: top;
-}
-.info {
-  font-weight: 300px;
-}
-.title {
+  line-height: 3em;
 }
 .header {
+  display: inline;
+  font-size: 1.5em;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 600;
+}
+
+.info {
+  display: inline;
+  font-size: 1.3em;
+  font-style: normal;
+  font-weight: 300;
 }
