@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {me, getMyFriends} from '../store/user'
 import {Container, Row, Col} from 'reactstrap'
 import Friends from './Friends'
-// import {UserUpdate} from '../components'
+import {UserUpdate} from '../components'
 import Notifications from './Notifications'
 
 class UserHome extends Component {
@@ -19,7 +19,7 @@ class UserHome extends Component {
     let user = this.props.user
     return (
       <>
-        {/* <UserUpdate /> */}
+        <UserUpdate />
         <Container id="userHome">
           <Row>
             <Col xs="6">
@@ -47,7 +47,7 @@ class UserHome extends Component {
             </Col>
 
             <Col xs="6">
-              <div id="notifs">
+              <div id="notification">
                 <h3 className="header"> Notifications </h3>
                 <Notifications />
               </div>

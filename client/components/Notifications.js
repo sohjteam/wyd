@@ -16,10 +16,12 @@ class Notifications extends Component {
     return (
       <>
         <Container>
-          {notifs.map(
-            notif =>
-              notif.status === 'Pending' ? <li>{notif.content}</li> : null
-          )}
+          <div id="notifs">
+            {notifs.map(
+              notif =>
+                notif.status === 'Pending' ? <li>{notif.content}</li> : null
+            )}
+          </div>
         </Container>
       </>
     )
