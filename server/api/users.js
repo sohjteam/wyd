@@ -129,7 +129,7 @@ router.put('/:id', isAuthenticated, async (req, res, next) => {
   }
 })
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', isAuthenticated, async (req, res, next) => {
   try {
     const userId = req.params.id
     const data = await User.destroy({

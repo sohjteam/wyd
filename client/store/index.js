@@ -5,8 +5,9 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import user from './user'
 import events from './events'
 import groups from './groups'
+import notifications from './notifications'
 
-const reducer = combineReducers({user, events, groups})
+const reducer = combineReducers({user, events, groups, notifications})
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )
