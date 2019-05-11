@@ -94,11 +94,13 @@ const events = [
 const notifications = [
   {
     content: 'new study group created',
-    userId: 1
+    userId: 1,
+    invite: 'group'
   },
   {
     content: 'someone wants to add you as friend',
-    userId: 3
+    userId: 3,
+    invite: 'friend'
   }
 ]
 
