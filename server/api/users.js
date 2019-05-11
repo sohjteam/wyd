@@ -116,6 +116,7 @@ router.put('/:id', isAuthenticated, async (req, res, next) => {
     const user = await User.findById(userId)
     if (!user) throw next()
     const updated = await user.update({
+      username: req.body.username,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,

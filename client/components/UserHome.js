@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {me, getMyFriends} from '../store/user'
 import {Container, Row, Col} from 'reactstrap'
 import Friends from './Friends'
+import {UserUpdate} from '../components'
 
 class UserHome extends Component {
   componentDidMount() {
@@ -17,6 +18,7 @@ class UserHome extends Component {
     let user = this.props.user
     return (
       <>
+        {/* <UserUpdate /> */}
         <Container id="userHome">
           <Row>
             <Col xs="6">
