@@ -59,7 +59,9 @@ class Friends extends Component {
                     <Button close />
                   </CardTitle>
                   <CardText>
-                    <img src={friend.image} width="100" />
+                    <div className="circle_image_friend">
+                      <img src={friend.image} width="100" id="friendsPic" />
+                    </div>
                     <p>
                       {friend.firstName} {friend.lastName}
                     </p>
@@ -69,7 +71,7 @@ class Friends extends Component {
             </>
           ))}
         </CardGroup>
-        <h3>Add Friend</h3>
+        <h3 className="header">Add Friend:</h3>
         <Form id="addFriend" onSubmit={this.handleSubmit}>
           <Label for="friendSearch">Search:</Label>
           <Input
@@ -78,7 +80,7 @@ class Friends extends Component {
             name="username"
             onChange={this.handleChange}
           />
-          <Button type="submit" onClick={this.toggle}>
+          <Button type="submit" onClick={this.toggle} outline color="info">
             Search Friend
           </Button>
           <Collapse isOpen={this.state.collapse}>

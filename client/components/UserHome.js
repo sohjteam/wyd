@@ -18,24 +18,37 @@ class UserHome extends Component {
     let user = this.props.user
     return (
       <>
-        <Container>
+        <Container id="userHome">
           <Row>
-            <div id="profile">
-              <Col s="auto">
-                <h1 className="title">Profile</h1>
+            <Col xs="6">
+              <div id="profile">
+                <div className="circle_image">
+                  <img src={user.image} id="myProPic" />
+                </div>
 
-                <img src={user.image} width="150" />
-                <h1 className="header"> Name:</h1>
-                <p>
-                  {user.firstName} {user.lastName}
-                </p>
-                <h1 className="header">Email: </h1>
-                <p>{user.email}</p>
+                <div className="userInfo">
+                  <h3 className="header"> Name: </h3>
+                  <p className="info">
+                    {user.firstName} {user.lastName}
+                  </p>
+                  <br />
+                  <h3 className="header"> Username: </h3>
+                  <p className="info">{user.username}</p>
+                  <br />
+                  <h3 className="header">Email: </h3>
+                  <p className="info">{user.email}</p>
+                  <br />
+                  <h3 className="header">Friends:</h3>
+                  <Friends />
+                </div>
+              </div>
+            </Col>
 
-                <h1 className="header">Friends:</h1>
-                <Friends />
-              </Col>
-            </div>
+            <Col xs="6">
+              <div id="notifs">
+                <p>notifs</p>
+              </div>
+            </Col>
           </Row>
           <Row>
             <Notifications />
