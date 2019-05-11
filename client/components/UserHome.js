@@ -48,12 +48,10 @@ class UserHome extends Component {
 
             <Col xs="6">
               <div id="notifs">
-                <p>notifs</p>
+                <h3 className="header"> Notifications </h3>
+                <Notifications />
               </div>
             </Col>
-          </Row>
-          <Row>
-            <Notifications />
           </Row>
         </Container>
       </>

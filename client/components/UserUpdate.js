@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {me, updatedUser} from '../store/user'
+import {updatedUser} from '../store/user'
 import {Form, FormGroup, Label, Button, Input} from 'reactstrap'
 
 class UserUpdate extends Component {

@@ -8,7 +8,10 @@
   padding: 5%;
 }
 #notifs {
-  border: 2px solid black;
+  position: relative;
+  border: 2px solid #dddddd;
+  text-align: center;
+  padding: 5%;
 }
 #userEvents {
   border: 2px solid red;
