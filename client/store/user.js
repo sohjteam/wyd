@@ -16,7 +16,7 @@ const searchUsername = username => ({type: SEARCH_FRIEND, username})
 const initialState = {
   user: {},
   friends: [],
-  search: []
+  search: {}
 }
 
 export const me = () => async dispatch => {
@@ -88,7 +88,7 @@ export const getMyFriends = userId => async dispatch => {
 export const searchFriend = username => async dispatch => {
   try {
     const res = await axios.get(`/api/friend/${username}`)
-    dispatch(searchUsername(res.data))
+    dispatch(searchUsername(res.data[0]))
   } catch (error) {
     console.error(error)
   }

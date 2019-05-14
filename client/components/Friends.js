@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getMyFriends, searchFriend} from '../store/user'
+import {postNotif} from '../store/notifications'
 import {
   Button,
   Card,
@@ -11,7 +12,11 @@ import {
   Form,
   Label,
   Input,
-  Collapse
+  Collapse,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter
 } from 'reactstrap'
 
 class Friends extends Component {
@@ -19,11 +24,14 @@ class Friends extends Component {
     super(props)
     this.state = {
       username: '',
-      collapse: false
+      collapse: false,
+      modal: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.toggle = this.toggle.bind(this)
+    this.toggleCollapse = this.toggleCollapse.bind(this)
+    this.toggleModal = this.toggleModal.bind(this)
+    this.handleAdd = this.handleAdd.bind(this)
   }
 
   componentDidMount() {
@@ -40,14 +48,29 @@ class Friends extends Component {
     this.props.searchFriend(this.state.username)
   }
 
-  toggle() {
-    this.setState(state => ({collapse: !state.collapse}))
+  toggleCollapse() {
+    this.setState(prevState => ({collapse: !prevState.collapse}))
+  }
+
+  toggleModal() {
+    this.setState(prevState => ({
+      modal: !prevState.modal
+    }))
+  }
+
+  handleAdd() {
+    this.props.postNotif({
+      content: `${this.props.user.username} wants to add you as a friend`,
+      invite: 'friend',
+      userId: this.props.search.id
+    })
   }
 
   render() {
     if (!this.props.friends) {
       this.props.friends = []
     }
+
     return (
       <>
         <CardGroup>
@@ -80,20 +103,49 @@ class Friends extends Component {
             name="username"
             onChange={this.handleChange}
           />
-          <Button type="submit" onClick={this.toggle} outline color="info">
+          <Button
+            type="submit"
+            onClick={this.toggleCollapse}
+            outline
+            color="info"
+          >
             Search Friend
           </Button>
           <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardBody>
-                {this.props.search.map(user => (
-                  <>
-                    <img src={user.image} width="110" />
-                    <p>
-                      {user.firstName} {user.lastName}
-                    </p>
-                  </>
-                ))}
+                <img src={this.props.search.image} width="110" />
+                <p>
+                  {this.props.search.firstName} {this.props.search.lastName}
+                </p>
+                <Button onClick={this.toggleModal}>Add Friend</Button>
+                <Modal
+                  isOpen={this.state.modal}
+                  toggle={this.toggleModal}
+                  className={this.props.className}
+                >
+                  <ModalHeader toggle={this.toggleModal}>
+                    Add Friend?
+                  </ModalHeader>
+                  <ModalBody>
+                    Do you want to add this person as a friend?
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button
+                      color="primary"
+                      onClick={event => {
+                        this.handleAdd()
+                        this.toggleModal()
+                        this.toggleCollapse()
+                      }}
+                    >
+                      Yes
+                    </Button>{' '}
+                    <Button color="secondary" onClick={this.toggleModal}>
+                      Cancel
+                    </Button>
+                  </ModalFooter>
+                </Modal>
               </CardBody>
             </Card>
           </Collapse>
@@ -106,12 +158,14 @@ class Friends extends Component {
 const mapStateToProps = state => ({
   search: state.user.search,
   friends: state.user.friends,
-  userId: state.user.user.id
+  userId: state.user.user.id,
+  user: state.user.user
 })
 
 const mapDispatchToProps = dispatch => ({
   getMyFriends: userId => dispatch(getMyFriends(userId)),
-  searchFriend: username => dispatch(searchFriend(username))
+  searchFriend: username => dispatch(searchFriend(username)),
+  postNotif: newNotif => dispatch(postNotif(newNotif))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Friends)

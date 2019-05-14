@@ -44,8 +44,6 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case GET_NOTIFS:
       return {...state, notifs: action.notifs}
-    case POST_NOTIF:
-      return {...state, notifs: action.newNotifs}
     case DELETE_NOTIF:
       return {
         ...state,
