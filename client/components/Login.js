@@ -71,10 +71,11 @@ class Login extends Component {
                 onChange={this.handleChange}
                 value={this.state.password}
               />
+              {error && error.response && <div> {error.response.data} </div>}
             </Col>
           </FormGroup>
+
           <Col md={{size: 12, offset: 3}}>
-            {error && error.response && <div> {error.response.data} </div>}
             <Button style={buttonStyle}>Submit</Button>
 
             <Link to="/signup">
