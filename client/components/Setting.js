@@ -40,6 +40,10 @@ class Setting extends Component {
     if (this.props.auth(email, password)) {
       this.setState(state => ({authorized: !state.authorized}))
     }
+    this.setState(state => ({
+      email: '',
+      password: ''
+    }))
   }
   toggle() {
     this.setState(prevState => ({
