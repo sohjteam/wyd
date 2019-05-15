@@ -1,15 +1,26 @@
 #userHome {
   font-family: futura-pt, sans-serif;
+  border: 2px solid #dddddd;
 }
 #profile {
   position: relative;
-  border: 2px solid #dddddd;
+  border-right: 2px solid #dddddd;
   text-align: center;
   padding: 5%;
 }
-#notifs {
-  border: 2px solid black;
+#notification {
+  position: relative;
+  text-align: center;
+  padding: 5%;
 }
+
+#notifs {
+  height: 100px;
+  margin-top: 5%;
+  padding: 3%;
+  background-color: #b6d2e4;
+}
+
 #userEvents {
   border: 2px solid red;
 }
@@ -26,8 +37,8 @@
 .circle_image_friend {
   display: inline-block;
   position: relative;
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   overflow: hidden;
   border-radius: 50%;
   margin: 15% auto 15% auto;
