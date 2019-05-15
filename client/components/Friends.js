@@ -62,7 +62,8 @@ class Friends extends Component {
     this.props.postNotif({
       content: `${this.props.user.username} wants to add you as a friend`,
       invite: 'friend',
-      userId: this.props.search.id
+      userId: this.props.search.id,
+      senderId: this.props.userId
     })
   }
 

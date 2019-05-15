@@ -1,11 +1,22 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getNotifs} from '../store/notifications'
-import {Container} from 'reactstrap'
+import {addFriend} from '../store/user'
+import {Container, Button} from 'reactstrap'
 
 class Notifications extends Component {
+  constructor() {
+    super()
+    this.handleAccept = this.handleAccept.bind(this)
+  }
+
   componentDidMount() {
     this.props.getNotifs(this.props.userId)
+  }
+
+  handleAccept(friendId) {
+    console.log('here')
+    this.props.addFriend(this.props.userId, friendId)
   }
 
   render() {
@@ -18,7 +29,16 @@ class Notifications extends Component {
         <Container>
           {notifs.map(
             notif =>
-              notif.status === 'Pending' ? <li>{notif.content}</li> : null
+              notif.status === 'Pending' && notif.invite === 'friend' ? (
+                <li>
+                  {notif.content}
+                  {console.log('sender', notif.senderId)}
+                  <Button onClick={event => this.handleAccept(notif.senderId)}>
+                    Accept
+                  </Button>
+                  <Button>Decline</Button>
+                </li>
+              ) : null
           )}
         </Container>
       </>
@@ -32,7 +52,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  getNotifs: userId => dispatch(getNotifs(userId))
+  getNotifs: userId => dispatch(getNotifs(userId)),
+  addFriend: (userId, friendId) => dispatch(addFriend(userId, friendId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Notifications)

@@ -5,13 +5,13 @@ const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
 const GET_FRIENDS = 'GET_FRIENDS'
 const SEARCH_FRIEND = 'SEARCH_FRIEND'
-// const ADD_FRIEND = 'ADD_FRIEND'
+const ADD_FRIEND = 'ADD_FRIEND'
 
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
 const getFriends = friends => ({type: GET_FRIENDS, friends})
 const searchUsername = username => ({type: SEARCH_FRIEND, username})
-// const addFriend = friend => ({type: ADD_FRIEND, friend})
+const addedFriend = friend => ({type: ADD_FRIEND, friend})
 
 const initialState = {
   user: {},
@@ -94,6 +94,18 @@ export const searchFriend = username => async dispatch => {
   }
 }
 
+export const addFriend = (userId, friendId) => async dispatch => {
+  try {
+    const res = await axios.post(`/api/friend/${userId}`, {
+      userId,
+      friendId
+    })
+    dispatch(addedFriend(res.data))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_USER:
@@ -102,8 +114,8 @@ export default function(state = initialState, action) {
       return {...state, friends: action.friends}
     case SEARCH_FRIEND:
       return {...state, search: action.username}
-    // case ADD_FRIEND:
-    //   return {...state, friends: [...state.friends, action.friend]}
+    case ADD_FRIEND:
+      return {...state, friends: [...state.friends, action.friend]}
     case REMOVE_USER:
       return initialState
     default:
