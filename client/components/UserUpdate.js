@@ -5,14 +5,13 @@ import {Form, FormGroup, Label, Button, Input} from 'reactstrap'
 
 class UserUpdate extends Component {
   constructor(props) {
-    console.log('user', props.user)
     super(props)
     this.state = {
       username: props.user.username,
       firstName: props.user.firstName,
       lastName: props.user.lastName,
       email: props.user.email,
-      password: props.user.password,
+      password: props.password,
       image: props.user.image
     }
     this.handleChange = this.handleChange.bind(this)
@@ -26,7 +25,7 @@ class UserUpdate extends Component {
   }
   handleSubmit = event => {
     event.preventDefault()
-    const {username, firstName, lastName, password, image, email} = this.state
+    const {username, firstName, lastName, image, email, password} = this.state
     const update = {
       email,
       username,
@@ -36,13 +35,6 @@ class UserUpdate extends Component {
       image
     }
     this.props.updatedUser(this.props.userId, update)
-  }
-
-  componentDidUpdate(prevState, newState) {
-    console.log('PREC', prevState, 'NEW', newState)
-    if (this.props.userId === prevState.userID) {
-      this.fetchData(this.props.userId)
-    }
   }
 
   render() {
@@ -76,6 +68,7 @@ class UserUpdate extends Component {
               onChange={this.handleChange}
             />
           </FormGroup>
+
           <FormGroup>
             <Label for="firstName">First Name</Label>
             <Input

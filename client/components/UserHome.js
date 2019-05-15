@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {me, getMyFriends} from '../store/user'
+import {getMyFriends} from '../store/user'
 import {Container, Row, Col} from 'reactstrap'
 import Friends from './Friends'
-import {UserUpdate} from '../components'
+import {Setting} from '../components'
 import Notifications from './Notifications'
 
 class UserHome extends Component {
@@ -19,7 +19,7 @@ class UserHome extends Component {
     let user = this.props.user
     return (
       <>
-        <UserUpdate />
+        <Setting />
         <Container id="userHome">
           <Row>
             <Col xs="6">
@@ -66,7 +66,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  me: () => dispatch(me()),
   getMyFriends: userId => dispatch(getMyFriends(userId))
 })
 

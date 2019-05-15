@@ -28,6 +28,7 @@ class Routes extends Component {
             <Route exact path="/events" component={Events} />
             <Route exact path="/groups" component={Groups} />
             {/* <Route exact path="/groups/:id" component={SingleGroup} /> */}
+
             <Route path="*" component={NotFound} />
           </Switch>
         ) : (

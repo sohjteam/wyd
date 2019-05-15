@@ -81,7 +81,7 @@ export const createUser = (
 export const updatedUser = (userId, update) => async dispatch => {
   try {
     const res = await axios.put(`/api/users/${userId}`, update)
-    dispatch(updateUser(res.data.updated))
+    dispatch(updateUser(res.data))
   } catch (error) {
     console.error(error)
   }
