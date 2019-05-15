@@ -56,6 +56,21 @@ export const auth = (email, password) => async dispatch => {
   }
 }
 
+export const authUpdate = (email, password) => async dispatch => {
+  let res
+  try {
+    res = await axios.post('/auth/login', {email, password})
+  } catch (authError) {
+    return {error: authError}
+  }
+
+  try {
+    dispatch(getUser(res.data))
+  } catch (dispatchError) {
+    console.error(dispatchError)
+  }
+}
+
 export const createUser = (
   email,
   password,
