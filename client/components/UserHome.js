@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {me, getMyFriends} from '../store/user'
+import {getMyFriends} from '../store/user'
 import {Container, Row, Col} from 'reactstrap'
 import Friends from './Friends'
+import {Setting} from '../components'
 import Notifications from './Notifications'
 
 class UserHome extends Component {
@@ -14,13 +15,15 @@ class UserHome extends Component {
     if (!this.props.myFriends) {
       this.props.myFriends = []
     }
-
     let user = this.props.user
+
     return (
       <>
         <Container id="userHome">
           <Row>
             <Col xs="6">
+              {'    '}
+              <Setting />
               <div id="profile">
                 <div className="circle_image">
                   <img src={user.image} id="myProPic" />
@@ -45,11 +48,9 @@ class UserHome extends Component {
             </Col>
 
             <Col xs="6">
-              <div id="notifs">
-                <p>Notifications</p>
-                <Row>
-                  <Notifications />
-                </Row>
+              <div id="notification">
+                <h3 className="header"> Notifications </h3>
+                <Notifications />
               </div>
             </Col>
           </Row>
@@ -66,7 +67,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  me: () => dispatch(me()),
   getMyFriends: userId => dispatch(getMyFriends(userId))
 })
 

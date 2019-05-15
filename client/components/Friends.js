@@ -77,26 +77,26 @@ class Friends extends Component {
         <CardGroup>
           {this.props.friends.map(friend => (
             <>
-              <Card>
-                <CardBody>
-                  <CardTitle>
-                    <Button close />
-                  </CardTitle>
-                  <CardText>
-                    <div className="circle_image_friend">
-                      <img src={friend.image} width="100" id="friendsPic" />
-                    </div>
-                    <p>
-                      {friend.firstName} {friend.lastName}
-                    </p>
-                  </CardText>
-                </CardBody>
-              </Card>
+              {/* <Card> */}
+              <CardBody>
+                <CardTitle>
+                  <Button close />
+                </CardTitle>
+                <CardText>
+                  <div className="circle_image_friend">
+                    <img src={friend.image} width="100" id="friendsPic" />
+                  </div>
+                  <p>
+                    {friend.firstName} {friend.lastName}
+                  </p>
+                </CardText>
+              </CardBody>
+              {/* </Card> */}
             </>
           ))}
         </CardGroup>
         <h3 className="header">Add Friend:</h3>
-        <Form id="addFriend" onSubmit={this.handleSubmit}>
+        <Form onSubmit={this.handleSubmit}>
           <Label for="friendSearch">Search:</Label>
           <Input
             id="addFriend"
