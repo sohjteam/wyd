@@ -19,10 +19,11 @@ class UserHome extends Component {
     let user = this.props.user
     return (
       <>
-        <Setting />
         <Container id="userHome">
           <Row>
             <Col xs="6">
+              {'    '}
+              <Setting />
               <div id="profile">
                 <div className="circle_image">
                   <img src={user.image} id="myProPic" />
