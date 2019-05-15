@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {auth} from '../store/user'
+import {authUpdate} from '../store/user'
 import {
   Form,
   FormGroup,
@@ -32,15 +32,17 @@ class Setting extends Component {
       [event.target.name]: event.target.value
     })
   }
-  handleSubmit = event => {
+  handleSubmit = async event => {
     event.preventDefault()
     const email = event.target.email.value
     const password = event.target.password.value
-    this.props.auth(email, password)
-    if (this.props.auth(email, password)) {
+    const test = await this.props.auth(email, password)
+    if (!test) {
       this.setState(state => ({authorized: !state.authorized}))
+    } else {
+      alert('Wrong Password or Email')
     }
-    this.setState(state => ({
+    this.setState(() => ({
       email: '',
       password: ''
     }))
@@ -87,6 +89,8 @@ class Setting extends Component {
                     />
                   </FormGroup>
                   <Button>Continue</Button>
+                  {/* {error &&
+                    error.response && <div> {error.response.data} </div>} */}
                 </Form>
               </ModalBody>
             </>
@@ -103,12 +107,13 @@ class Setting extends Component {
     )
   }
 }
+
 const mapStateToProps = state => ({
   user: state.user.user
 })
 
 const mapDispatchToProps = dispatch => ({
-  auth: (email, password) => dispatch(auth(email, password))
+  auth: (email, password) => dispatch(authUpdate(email, password))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Setting)

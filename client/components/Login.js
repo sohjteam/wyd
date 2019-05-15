@@ -38,6 +38,7 @@ class Login extends Component {
   }
 
   render() {
+    const error = this.props.error
     return (
       <Container style={conStyle}>
         <Form onSubmit={this.handleSubmit}>
@@ -73,7 +74,9 @@ class Login extends Component {
             </Col>
           </FormGroup>
           <Col md={{size: 12, offset: 3}}>
+            {error && error.response && <div> {error.response.data} </div>}
             <Button style={buttonStyle}>Submit</Button>
+
             <Link to="/signup">
               <Button>Create an Account</Button>
             </Link>
@@ -84,8 +87,14 @@ class Login extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    error: state.user.user.error
+  }
+}
+
 const mapDispatchToProps = dispatch => ({
   auth: (email, password) => dispatch(auth(email, password))
 })
 
-export default connect(null, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

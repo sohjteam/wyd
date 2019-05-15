@@ -15,8 +15,8 @@ class UserHome extends Component {
     if (!this.props.myFriends) {
       this.props.myFriends = []
     }
-
     let user = this.props.user
+
     return (
       <>
         <Container id="userHome">
