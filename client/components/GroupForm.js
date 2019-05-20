@@ -3,18 +3,18 @@ import {connect} from 'react-redux'
 import {addNewGroup} from '../store/groups'
 import {getMyFriends} from '../store/user'
 import {Form, FormGroup, Label, Input, Button} from 'reactstrap'
+import {postNotif} from '../store/notifications'
 
 class GroupForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      name: '',
-      password: '',
-      image: '',
-      members: []
+      invite: []
     }
-    this.handleSubmit = this.handleSubmit.bind(this)
+    // this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleAdd = this.handleAdd.bind(this)
+    this.handleSelect = this.handleSelect.bind(this)
   }
   componentDidMount() {
     this.props.getMyFriends(this.props.userId)
@@ -24,18 +24,41 @@ class GroupForm extends Component {
       [evt.target.name]: evt.target.value
     })
   }
-  handleSubmit = evt => {
-    evt.preventDefault()
-    const {name, password, image, members} = this.state
+  // handleSubmit = evt => {
+  //   evt.preventDefault()
+  //   const {name, password, image, members} = this.state
 
-    const newGroup = {
-      name,
-      password,
-      image,
-      members
-    }
-    this.props.addNewGroup(newGroup)
+  //   const newGroup = {
+  //     name,
+  //     password,
+  //     image,
+  //     members
+  //   }
+  //   this.props.addNewGroup(newGroup)
+  // }
+
+  handleAdd() {
+    this.props.postNotif({
+      content: `${this.props.user.username} wants to add you to a new group! `,
+      invite: 'group',
+      userId: this.props.search.id,
+      senderId: this.props.userId
+    })
   }
+
+  handleSelect(evt) {
+    evt.persist()
+    if (this.state.invite.includes(evt.target.value)) {
+      this.setState(state => ({
+        invite: state.invite.filter(elem => elem !== evt.target.value)
+      }))
+    } else {
+      this.setState(prevState => ({
+        invite: [...prevState.invite, evt.target.value]
+      }))
+    }
+  }
+
   render() {
     if (!this.props.groups) {
       this.props.groups = []
@@ -43,9 +66,10 @@ class GroupForm extends Component {
     if (!this.props.userFriends) {
       this.props.userFriends = []
     }
+
     return (
       <>
-        <Form id="groupForm" onSubmit={this.handleSubmit}>
+        <Form id="groupForm">
           <FormGroup>
             <Label for="groupName">Group Name</Label>
             <Input
@@ -74,19 +98,26 @@ class GroupForm extends Component {
               onChange={this.handleChange}
             />
           </FormGroup>
+
           <FormGroup>
-            <Label for="exampleSelectMulti">Select Multiple</Label>
+            <Label for="friendList">Select Friends</Label>
+
             <Input
               type="select"
-              name="members"
-              id="groupMembersSelect"
+              name="selectMulti"
+              id="exampleSelectMulti"
               multiple
+              onClick={this.handleSelect}
             >
               {this.props.userFriends.map(friend => (
-                <option key={friend.id}>{friend.firstName}</option>
+                <option key={friend.id} value={friend.id}>
+                  {friend.username}
+                </option>
               ))}
             </Input>
+            {console.log('INVITE', this.state.invite)}
           </FormGroup>
+
           <Button type="submit">Submit</Button>
         </Form>
       </>
@@ -97,12 +128,15 @@ class GroupForm extends Component {
 const mapStateToProps = state => ({
   userId: state.user.user.id,
   groups: state.groups.groups,
-  userFriends: state.user.friends
+  userFriends: state.user.friends,
+  search: state.user.search,
+  user: state.user.user
 })
 
 const mapDispatchToProps = dispatch => ({
   addNewGroup: newGroup => dispatch(addNewGroup(newGroup)),
-  getMyFriends: userId => dispatch(getMyFriends(userId))
+  getMyFriends: userId => dispatch(getMyFriends(userId)),
+  postNotif: newNotif => dispatch(postNotif(newNotif))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(GroupForm)
