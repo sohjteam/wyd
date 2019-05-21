@@ -53,7 +53,6 @@ router.post('/:id', async (req, res, next) => {
   try {
     console.log('DDDDDD apit', req.body.newGroup, req.body.userId)
     const newGroup = await Group.create({
-      userId: req.body.userId,
       name: req.body.newGroup.name,
       password: req.body.newGroup.password,
       image: req.body.newGroup.image
