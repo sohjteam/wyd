@@ -49,9 +49,20 @@ router.get('/:id/events', async (req, res, next) => {
   }
 })
 
+router.post('/:id/:groupId', async (req, res, next) => {
+  try {
+    console.log('AYO', req.body)
+    await GroupUsers.create({
+      userId: req.body.userId,
+      groupId: req.body.groupId
+    })
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.post('/:id', async (req, res, next) => {
   try {
-    console.log('DDDDDD apit', req.body.newGroup, req.body.userId)
     const newGroup = await Group.create({
       name: req.body.newGroup.name,
       password: req.body.newGroup.password,

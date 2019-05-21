@@ -106,7 +106,6 @@ class SingleGroup extends Component {
   render() {
     const group = this.props.group
     const members = this.props.members
-    console.log('GROUP', group)
     if (!this.props.userFriends) {
       this.props.userFriends = []
     }
