@@ -1,5 +1,7 @@
 const router = require('express').Router()
 const {Event, Group, User} = require('../db/models')
+const db = require('../db')
+const GroupUsers = db.models.groupUsers
 
 router.get('/:id', async (req, res, next) => {
   try {
@@ -47,10 +49,22 @@ router.get('/:id/events', async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/:id', async (req, res, next) => {
   try {
-    const newGroup = await Group.create(req.body)
-    res.json(newGroup)
+    console.log('DDDDDD apit', req.body.newGroup, req.body.userId)
+    const newGroup = await Group.create({
+      userId: req.body.userId,
+      name: req.body.newGroup.name,
+      password: req.body.newGroup.password,
+      image: req.body.newGroup.image
+    })
+
+    await GroupUsers.create({
+      userId: req.body.userId,
+      groupId: newGroup.id
+    })
+
+    res.send(newGroup)
   } catch (error) {
     next(error)
   }

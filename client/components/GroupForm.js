@@ -9,9 +9,12 @@ class GroupForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      name: '',
+      password: '',
+      image: '',
       invite: []
     }
-    // this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleAdd = this.handleAdd.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
@@ -24,35 +27,43 @@ class GroupForm extends Component {
       [evt.target.name]: evt.target.value
     })
   }
-  // handleSubmit = evt => {
-  //   evt.preventDefault()
-  //   const {name, password, image, members} = this.state
 
-  //   const newGroup = {
-  //     name,
-  //     password,
-  //     image,
-  //     members
-  //   }
-  //   this.props.addNewGroup(newGroup)
-  // }
+  handleSubmit = evt => {
+    evt.preventDefault()
+    console.log('ME', this.props.userId)
+    const userId = this.props
+    const {name, password, image} = this.state
+
+    const newGroup = {
+      name,
+      password,
+      image
+    }
+    this.props.addNewGroup(newGroup, this.props.userId)
+  }
 
   handleAdd() {
-    this.props.postNotif({
-      content: `${this.props.user.username} wants to add you to a new group! `,
-      invite: 'group',
-      userId: this.props.search.id,
-      senderId: this.props.userId
+    this.state.invite.map(friend => {
+      this.props.postNotif({
+        content: `${
+          this.props.user.username
+        } wants to add you to a new group! `,
+        invite: 'group',
+        userId: friend,
+        senderId: this.props.userId
+      })
     })
   }
 
   handleSelect(evt) {
     evt.persist()
+    evt.target.style.fontWeight = ''
     if (this.state.invite.includes(evt.target.value)) {
       this.setState(state => ({
         invite: state.invite.filter(elem => elem !== evt.target.value)
       }))
     } else {
+      evt.target.style.fontWeight = '700'
       this.setState(prevState => ({
         invite: [...prevState.invite, evt.target.value]
       }))
@@ -69,7 +80,7 @@ class GroupForm extends Component {
 
     return (
       <>
-        <Form id="groupForm">
+        <Form id="groupForm" onSubmit={this.handleSubmit}>
           <FormGroup>
             <Label for="groupName">Group Name</Label>
             <Input
@@ -104,7 +115,6 @@ class GroupForm extends Component {
 
             <Input
               type="select"
-              name="selectMulti"
               id="exampleSelectMulti"
               multiple
               onClick={this.handleSelect}
@@ -115,10 +125,27 @@ class GroupForm extends Component {
                 </option>
               ))}
             </Input>
-            {console.log('INVITE', this.state.invite)}
           </FormGroup>
 
-          <Button type="submit">Submit</Button>
+          {/* checkbox instead of multi select
+           <FormGroup>
+            <Label for="friendList">Select Friends</Label>
+            <br />
+            {this.props.userFriends.map(friend => (
+              <FormGroup key={friend.id} check inline>
+                <Label onClick={this.handleSelect} check>
+                  <Input type="checkbox" value={friend.id} />
+                  {friend.username}
+                </Label>
+              </FormGroup>
+            ))}
+
+            {console.log('invite', this.state.invite)}
+          </FormGroup> */}
+
+          <Button type="submit" onClick={this.handleAdd}>
+            Submit
+          </Button>
         </Form>
       </>
     )
@@ -129,12 +156,11 @@ const mapStateToProps = state => ({
   userId: state.user.user.id,
   groups: state.groups.groups,
   userFriends: state.user.friends,
-  search: state.user.search,
   user: state.user.user
 })
 
 const mapDispatchToProps = dispatch => ({
-  addNewGroup: newGroup => dispatch(addNewGroup(newGroup)),
+  addNewGroup: (newGroup, userId) => dispatch(addNewGroup(newGroup, userId)),
   getMyFriends: userId => dispatch(getMyFriends(userId)),
   postNotif: newNotif => dispatch(postNotif(newNotif))
 })

@@ -33,7 +33,7 @@ class Notifications extends Component {
                 <li>
                   {notif.content}
                   {console.log('sender', notif.senderId)}
-                  <Button onClick={event => this.handleAccept(notif.senderId)}>
+                  <Button onClick={() => this.handleAccept(notif.senderId)}>
                     Accept
                   </Button>
                   <Button>Decline</Button>
