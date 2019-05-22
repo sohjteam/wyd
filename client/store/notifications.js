@@ -2,11 +2,13 @@ import axios from 'axios'
 
 const GET_NOTIFS = 'GET_NOTIFS'
 const POST_NOTIF = 'POST_NOTIF'
-const DELETE_NOTIF = 'DELETE_NOTIF'
+// const DELETE_NOTIF = 'DELETE_NOTIF'
+const UPDATE_STATUS = 'UPDATE_STATUS'
 
 const gotNotifs = notifs => ({type: GET_NOTIFS, notifs})
 const postedNotif = newNotif => ({type: POST_NOTIF, newNotif})
-const deletedNotif = notif => ({type: DELETE_NOTIF, notif})
+// const deletedNotif = notif => ({type: DELETE_NOTIF, notif})
+const updatedStatus = notif => ({type: UPDATE_STATUS, notif})
 
 const initialState = {
   notifs: []
@@ -31,10 +33,19 @@ export const postNotif = newNotif => async dispatch => {
   }
 }
 
-export const deleteNotif = notifId => async dispatch => {
+// export const deleteNotif = notifId => async dispatch => {
+//   try {
+//     await axios.delete(`/api/notifications/${notifId}`)
+//     dispatch(deletedNotif())
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }
+
+export const updateStatus = (notifId, data) => async dispatch => {
   try {
-    await axios.delete(`/api/notifications/${notifId}`)
-    dispatch(deletedNotif())
+    const res = await axios.put(`/api/notifications/${notifId}`, data)
+    dispatch(updatedStatus(res.data))
   } catch (error) {
     console.log(error)
   }
@@ -44,10 +55,10 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case GET_NOTIFS:
       return {...state, notifs: action.notifs}
-    case DELETE_NOTIF:
+    case UPDATE_STATUS:
       return {
         ...state,
-        notifs: state.notifs.filter(notif => notif !== action.notif)
+        notifs: state.notifs.filter(notif => notif.id !== action.notif.id)
       }
     default:
       return state
