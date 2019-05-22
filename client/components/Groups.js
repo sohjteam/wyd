@@ -1,19 +1,24 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+// import {Link} from 'react-router-dom'
 import SingleGroup from './SingleGroup'
 import {getMyGroups} from '../store/groups'
 import {
   Container,
   Col,
+  Row,
   TabContent,
   TabPane,
   Nav,
   NavItem,
   NavLink,
-  Row
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody
 } from 'reactstrap'
 import classnames from 'classnames'
+import GroupForm from './GroupForm'
 
 const barStyle = {
   backgroundColor: 'white',
@@ -28,10 +33,12 @@ class Groups extends Component {
   constructor(props) {
     super(props)
 
-    this.toggle = this.toggle.bind(this)
     this.state = {
-      activeTab: 'all'
+      activeTab: 'all',
+      modal: false
     }
+    this.toggle = this.toggle.bind(this)
+    this.toggleForm = this.toggleForm.bind(this)
   }
 
   componentDidMount() {
@@ -44,6 +51,12 @@ class Groups extends Component {
         activeTab: tab
       })
     }
+  }
+
+  toggleForm() {
+    this.setState(prevState => ({
+      modal: !prevState.modal
+    }))
   }
 
   render() {
@@ -66,7 +79,7 @@ class Groups extends Component {
             </NavLink>
           </NavItem>
           {this.props.myGroups.map(group => (
-            <NavItem>
+            <NavItem key={group.id}>
               <NavLink
                 style={linkStyle}
                 href="#"
@@ -104,6 +117,15 @@ class Groups extends Component {
             )}
           </TabPane>
         </TabContent>
+        <Button onClick={this.toggleForm}>
+          Add Group
+          <Modal isOpen={this.state.modal} toggle={this.toggleForm}>
+            <ModalHeader toggle={this.toggleForm}>Add New Group</ModalHeader>
+            <ModalBody>
+              <GroupForm groupId={this.props.groupId} />
+            </ModalBody>
+          </Modal>
+        </Button>
       </div>
     )
   }

@@ -2,7 +2,10 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getGroupEvents} from '../store/events'
 import {getSingleGroup} from '../store/groups'
+import {getMyFriends} from '../store/user'
 import EventForm from './EventForm'
+import {postNotif} from '../store/notifications'
+
 import {
   Container,
   Col,
@@ -10,7 +13,11 @@ import {
   Button,
   Modal,
   ModalHeader,
-  ModalBody
+  ModalBody,
+  Form,
+  FormGroup,
+  Label,
+  Input
 } from 'reactstrap'
 import Calendar from 'react-big-calendar'
 import moment from 'moment'
@@ -32,15 +39,21 @@ class SingleGroup extends Component {
   constructor() {
     super()
     this.state = {
-      modal: false
+      modal: false,
+      modalMembers: false,
+      invite: []
     }
 
     this.toggle = this.toggle.bind(this)
+    this.toggleMembers = this.toggleMembers.bind(this)
+    this.handleSelect = this.handleSelect.bind(this)
+    this.handleAdd = this.handleAdd.bind(this)
   }
 
   componentDidMount() {
     this.props.getGroup(this.props.groupId)
     this.props.getEvents(this.props.groupId)
+    this.props.getMyFriends(this.props.userId)
   }
 
   componentDidUpdate(prevProps) {
@@ -56,9 +69,46 @@ class SingleGroup extends Component {
     }))
   }
 
+  toggleMembers() {
+    this.setState(prevState => ({
+      modalMembers: !prevState.modalMembers
+    }))
+  }
+
+  handleSelect(evt) {
+    evt.persist()
+    evt.target.style.fontWeight = ''
+    if (this.state.invite.includes(evt.target.value)) {
+      this.setState(state => ({
+        invite: state.invite.filter(elem => elem !== evt.target.value)
+      }))
+    } else {
+      evt.target.style.fontWeight = '700'
+      this.setState(prevState => ({
+        invite: [...prevState.invite, evt.target.value]
+      }))
+    }
+  }
+
+  handleAdd() {
+    this.state.invite.map(friend => {
+      this.props.postNotif({
+        content: `${
+          this.props.user.username
+        } wants to add you to a new group : ${this.props.group.name}`,
+        invite: 'group',
+        userId: friend,
+        senderId: this.props.userId,
+        groupId: this.props.group.id
+      })
+    })
+  }
   render() {
     const group = this.props.group
     const members = this.props.members
+    if (!this.props.userFriends) {
+      this.props.userFriends = []
+    }
     return (
       <>
         <Container fluid>
@@ -75,14 +125,48 @@ class SingleGroup extends Component {
                   </ModalBody>
                 </Modal>
               </Button>
+
               <h3>Members: </h3>
               {members.map(member => (
-                <li>
+                <li key={member.id}>
                   <img src={member.image} height="150" />
                   {member.firstName} {member.lastName}
                 </li>
               ))}
+              <Button onClick={this.toggleMembers}>
+                Add Members
+                <Modal
+                  isOpen={this.state.modalMembers}
+                  toggle={this.toggleMembers}
+                >
+                  <ModalHeader toggle={this.toggleMembers}>
+                    Add Members!
+                  </ModalHeader>
+                  <ModalBody>
+                    <Form onSubmit={this.handleAdd}>
+                      <FormGroup>
+                        <Label for="friendList">Select Friends</Label>
+
+                        <Input
+                          type="select"
+                          id="exampleSelectMulti"
+                          multiple
+                          onClick={this.handleSelect}
+                        >
+                          {this.props.userFriends.map(friend => (
+                            <option key={friend.id} value={friend.id}>
+                              {friend.username}
+                            </option>
+                          ))}
+                        </Input>
+                      </FormGroup>
+                      <Button type="submit">Submit</Button>
+                    </Form>
+                  </ModalBody>
+                </Modal>
+              </Button>
             </Col>
+
             <Col style={CalStyle}>
               <Calendar
                 localizer={localizer}
@@ -106,12 +190,17 @@ class SingleGroup extends Component {
 const mapStateToProps = state => ({
   events: state.events.groupEvents,
   group: state.groups.group,
-  members: state.groups.members
+  members: state.groups.members,
+  userFriends: state.user.friends,
+  userId: state.user.user.id,
+  user: state.user.user
 })
 
 const mapDispatchToProps = dispatch => ({
   getEvents: groupId => dispatch(getGroupEvents(groupId)),
-  getGroup: groupId => dispatch(getSingleGroup(groupId))
+  getGroup: groupId => dispatch(getSingleGroup(groupId)),
+  getMyFriends: userId => dispatch(getMyFriends(userId)),
+  postNotif: newNotif => dispatch(postNotif(newNotif))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleGroup)

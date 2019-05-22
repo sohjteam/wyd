@@ -49,7 +49,7 @@ router.get('/:id/friends', isAuthenticated, async (req, res, next) => {
         {
           model: User,
           as: 'friend',
-          attributes: ['firstName', 'lastName', 'image'],
+          attributes: ['firstName', 'lastName', 'image', 'username', 'id'],
           through: {attributes: []}
         }
       ]

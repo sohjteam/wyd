@@ -134,7 +134,7 @@ class Friends extends Component {
                   <ModalFooter>
                     <Button
                       color="primary"
-                      onClick={event => {
+                      onClick={() => {
                         this.handleAdd()
                         this.toggleModal()
                         this.toggleCollapse()

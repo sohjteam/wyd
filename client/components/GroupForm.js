@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {addNewGroup} from '../store/groups'
-import {getMyFriends} from '../store/user'
 import {Form, FormGroup, Label, Input, Button} from 'reactstrap'
 
 class GroupForm extends Component {
@@ -10,39 +9,35 @@ class GroupForm extends Component {
     this.state = {
       name: '',
       password: '',
-      image: '',
-      members: []
+      image: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
-  componentDidMount() {
-    this.props.getMyFriends(this.props.userId)
-  }
+
   handleChange = evt => {
     this.setState({
       [evt.target.name]: evt.target.value
     })
   }
+
   handleSubmit = evt => {
     evt.preventDefault()
-    const {name, password, image, members} = this.state
+    const {name, password, image} = this.state
 
     const newGroup = {
       name,
       password,
-      image,
-      members
+      image
     }
-    this.props.addNewGroup(newGroup)
+    this.props.addNewGroup(newGroup, this.props.userId)
   }
+
   render() {
     if (!this.props.groups) {
       this.props.groups = []
     }
-    if (!this.props.userFriends) {
-      this.props.userFriends = []
-    }
+
     return (
       <>
         <Form id="groupForm" onSubmit={this.handleSubmit}>
@@ -74,19 +69,7 @@ class GroupForm extends Component {
               onChange={this.handleChange}
             />
           </FormGroup>
-          <FormGroup>
-            <Label for="exampleSelectMulti">Select Multiple</Label>
-            <Input
-              type="select"
-              name="members"
-              id="groupMembersSelect"
-              multiple
-            >
-              {this.props.userFriends.map(friend => (
-                <option key={friend.id}>{friend.firstName}</option>
-              ))}
-            </Input>
-          </FormGroup>
+
           <Button type="submit">Submit</Button>
         </Form>
       </>
@@ -97,12 +80,11 @@ class GroupForm extends Component {
 const mapStateToProps = state => ({
   userId: state.user.user.id,
   groups: state.groups.groups,
-  userFriends: state.user.friends
+  user: state.user.user
 })
 
 const mapDispatchToProps = dispatch => ({
-  addNewGroup: newGroup => dispatch(addNewGroup(newGroup)),
-  getMyFriends: userId => dispatch(getMyFriends(userId))
+  addNewGroup: (newGroup, userId) => dispatch(addNewGroup(newGroup, userId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(GroupForm)

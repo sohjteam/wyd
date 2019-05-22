@@ -89,8 +89,6 @@ class Setting extends Component {
                     />
                   </FormGroup>
                   <Button>Continue</Button>
-                  {/* {error &&
-                    error.response && <div> {error.response.data} </div>} */}
                 </Form>
               </ModalBody>
             </>
