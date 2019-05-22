@@ -26,16 +26,16 @@ class Events extends Component {
           {this.props.myEvents.map(event => (
             <div key={event.id}>
               <Card body>
-                <CardTitle className="title" onClick={this.toggle}>
-                  {event.name}
+                <CardTitle className="subHeader" onClick={this.toggle}>
+                  {event.name.charAt(0).toUpperCase() + event.name.slice(1)}
                 </CardTitle>
                 <Collapse isOpen={this.state.collapse}>
                   <CardBody>
-                    <h4 className="header">Event: </h4>
+                    <h4 className="subHeader">Event: </h4>
                     <p>{event.name}</p>
-                    <h4 className="header">Event Type: </h4>
+                    <h4 className="subHeader">Event Type: </h4>
                     <p>{event.type}</p>
-                    <h4 className="header">Group:</h4>
+                    <h4 className="subHeader">Group:</h4>
                     <p>{event.group.name}</p>
                   </CardBody>
                 </Collapse>

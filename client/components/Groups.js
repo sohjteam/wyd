@@ -111,12 +111,12 @@ class Groups extends Component {
                 <Container>
                   <Row>
                     <Col xs="6">
-                      <h3>My Groups</h3>
+                      <h3 className="header">My Groups</h3>
                       <div id="groups">
                         {this.props.myGroups.map(group => (
                           <div key={group.id}>
                             <Card body id="cardgroup">
-                              <CardTitle className="title">
+                              <CardTitle className="subHeader">
                                 {' '}
                                 {group.name}
                               </CardTitle>
@@ -147,7 +147,9 @@ class Groups extends Component {
                     </Col>
 
                     <Col xs="6">
-                      <h3 id="eventsH3">My Events</h3>
+                      <h3 className="header" id="eventsH3">
+                        My Events
+                      </h3>
                       <div id="events">
                         <Events />
                       </div>

@@ -42,7 +42,6 @@ class Notifications extends Component {
             notif =>
               notif.status === 'Pending' && notif.invite === 'friend' ? (
                 <div>
-                  {console.log(notif)}
                   <Card body>
                     <CardTitle>
                       {notif.invite.charAt(0).toUpperCase() +

@@ -28,18 +28,18 @@ class UserHome extends Component {
                 </div>
 
                 <div className="userInfo">
-                  <h3 className="header"> Name: </h3>
+                  <h3 className="subHeader"> Name: </h3>
                   <p className="info">
                     {user.firstName} {user.lastName}
                   </p>
                   <br />
-                  <h3 className="header"> Username: </h3>
+                  <h3 className="subHeader"> Username: </h3>
                   <p className="info">{user.username}</p>
                   <br />
-                  <h3 className="header">Email: </h3>
+                  <h3 className="subHeader">Email: </h3>
                   <p className="info">{user.email}</p>
                   <br />
-                  <h3 className="header">Friends:</h3>
+                  <h3 className="subHeader">Friends:</h3>
                   <Friends />
                 </div>
               </div>

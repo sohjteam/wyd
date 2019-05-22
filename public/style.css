@@ -1,8 +1,14 @@
+body {
+  font-family: futura-pt, sans-serif, Nunito, Ubuntu;
+}
+div {
+  font-family: futura-pt;
+}
 #userHome {
-  font-family: futura-pt, sans-serif;
   border: 2px solid #dddddd;
   margin-top: 3%;
   margin-bottom: 3%;
+  font-family: futura-pt;
 }
 #profile {
   position: relative;
@@ -46,14 +52,12 @@
 #eventsH3 {
   margin-left: 8%;
 }
-.title {
-  font-weight: 500;
-  font-size: 1.5em;
-}
+
 #notifs {
   height: 100%;
   margin-top: 5%;
-  padding: 3%;
+  padding-top: 5%;
+  padding-bottom: 5%;
   background-color: #b6d2e4;
 }
 
@@ -94,11 +98,20 @@
   display: inline;
   font-size: 1.5em;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 800;
+  font-family: Ubuntu;
 }
-.info {
+
+.subHeader {
   display: inline;
   font-size: 1.3em;
+  font-family: Nunito;
+  font-weight: 800;
+}
+
+.info {
+  display: inline;
+  font-size: 1.1em;
   font-style: normal;
   font-weight: 300;
 }
@@ -113,7 +126,6 @@
 #settings-in {
   margin: 2%;
   background-color: white;
-  /* width: 80%; */
 }
 
 #clearButton {
