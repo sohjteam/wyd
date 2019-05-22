@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import {getMyFriends} from '../store/user'
 import {Container, Row, Col} from 'reactstrap'
 import Friends from './Friends'
-import {Setting} from '../components'
 import Notifications from './Notifications'
 
 class UserHome extends Component {
@@ -20,7 +19,6 @@ class UserHome extends Component {
     return (
       <>
         <Container id="userHome">
-          <Setting />
           <Row>
             <Col xs="6">
               {'    '}

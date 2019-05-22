@@ -7,7 +7,6 @@ import {
   Label,
   Button,
   Input,
-  Modal,
   ModalHeader,
   ModalBody
 } from 'reactstrap'
@@ -56,11 +55,8 @@ class Setting extends Component {
 
   render() {
     return (
-      <>
-        <Button outline color="info" onClick={this.toggle}>
-          Settings
-        </Button>
-        <Modal isOpen={this.state.modal} toggle={this.toggle}>
+      <div id="settings">
+        <div id="settings-in">
           {this.state.authorized === false ? (
             <>
               <ModalHeader toggle={this.toggle}>
@@ -100,8 +96,8 @@ class Setting extends Component {
               </ModalBody>
             </>
           )}
-        </Modal>
-      </>
+        </div>
+      </div>
     )
   }
 }

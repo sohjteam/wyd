@@ -1,8 +1,3 @@
-#barStyle {
-  border: 2px solid black;
-  width: 100%;
-}
-
 #userHome {
   font-family: futura-pt, sans-serif;
   border: 2px solid #dddddd;
@@ -104,4 +99,17 @@
   font-size: 1.3em;
   font-style: normal;
   font-weight: 300;
+}
+
+#settings {
+  background-color: #dddddd;
+  border: 2px solid #dddddd;
+  width: 50%;
+  margin: auto;
+  margin-top: 3%;
+}
+#settings-in {
+  margin: 2%;
+  background-color: white;
+  /* width: 80%; */
 }
