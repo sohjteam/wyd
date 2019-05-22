@@ -25,12 +25,14 @@ class Friends extends Component {
     this.state = {
       username: '',
       collapse: false,
-      modal: false
+      modal: false,
+      modalDelete: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.toggleCollapse = this.toggleCollapse.bind(this)
     this.toggleModal = this.toggleModal.bind(this)
+    this.toggleModalDelete = this.toggleModalDelete.bind(this)
     this.handleAdd = this.handleAdd.bind(this)
     this.handleDeleteFriend = this.handleDeleteFriend.bind(this)
   }
@@ -63,6 +65,12 @@ class Friends extends Component {
     }))
   }
 
+  toggleModalDelete() {
+    this.setState(prevState => ({
+      modalDelete: !prevState.modalDelete
+    }))
+  }
+
   handleAdd() {
     this.props.postNotif({
       content: `${this.props.user.username} wants to add you as a friend`,
@@ -87,8 +95,38 @@ class Friends extends Component {
                 <CardTitle>
                   <Button
                     close
-                    onClick={() => this.handleDeleteFriend(friend.id)}
+                    // onClick={() => this.handleDeleteFriend(friend.id)}
+                    onClick={this.toggleModalDelete}
                   />
+                  <Modal
+                    isOpen={this.state.modalDelete}
+                    toggle={this.toggleModalDelete}
+                    className={this.props.className}
+                  >
+                    <ModalHeader toggle={this.toggleModalDelete}>
+                      Delete Friend?
+                    </ModalHeader>
+                    <ModalBody>
+                      Do you want to delete this person from friends?
+                    </ModalBody>
+                    <ModalFooter>
+                      <Button
+                        color="primary"
+                        onClick={() => {
+                          this.handleDeleteFriend(friend.id)
+                          this.toggleModalDelete()
+                        }}
+                      >
+                        Yes
+                      </Button>{' '}
+                      <Button
+                        color="secondary"
+                        onClick={this.toggleModalDelete}
+                      >
+                        Cancel
+                      </Button>
+                    </ModalFooter>
+                  </Modal>
                 </CardTitle>
                 <CardText>
                   <div className="circle_image_friend">
