@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {getNotifs, updateStatus} from '../store/notifications'
 import {addFriend} from '../store/user'
 import {addMember} from '../store/groups'
-import {Container, Button} from 'reactstrap'
+import {Container, Button, Card, CardText, CardTitle} from 'reactstrap'
 
 class Notifications extends Component {
   constructor() {
@@ -36,22 +36,39 @@ class Notifications extends Component {
     }
     const notifs = this.props.notifs
     return (
-      <>
+      <div id="notifs">
         <Container>
           {notifs.map(
             notif =>
               notif.status === 'Pending' && notif.invite === 'friend' ? (
-                <li>
-                  {notif.content}
-                  <Button
-                    onClick={() => this.handleAccept(notif.senderId, notif.id)}
-                  >
-                    Accept
-                  </Button>
-                  <Button onClick={() => this.handleReject(notif.id)}>
-                    Decline
-                  </Button>
-                </li>
+                <div>
+                  {console.log(notif)}
+                  <Card body>
+                    <CardTitle>
+                      {notif.invite.charAt(0).toUpperCase() +
+                        notif.invite.slice(1)}{' '}
+                      Invitation
+                    </CardTitle>
+                    <CardText>
+                      {notif.content.charAt(0).toUpperCase() +
+                        notif.content.slice(1)}!
+                    </CardText>
+                    <Button
+                      id="clearButton"
+                      onClick={() =>
+                        this.handleAccept(notif.senderId, notif.id)
+                      }
+                    >
+                      Accept
+                    </Button>
+                    <Button
+                      id="clearButton"
+                      onClick={() => this.handleReject(notif.id)}
+                    >
+                      Decline
+                    </Button>
+                  </Card>
+                </div>
               ) : null
           )}
         </Container>
@@ -69,7 +86,7 @@ class Notifications extends Component {
               ) : null
           )}
         </Container>
-      </>
+      </div>
     )
   }
 }
