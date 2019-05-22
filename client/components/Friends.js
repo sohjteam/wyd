@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getMyFriends, searchFriend} from '../store/user'
+import {getMyFriends, searchFriend, deleteFriend} from '../store/user'
 import {postNotif} from '../store/notifications'
 import {
   Button,
@@ -25,13 +25,16 @@ class Friends extends Component {
     this.state = {
       username: '',
       collapse: false,
-      modal: false
+      modal: false,
+      modalDelete: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.toggleCollapse = this.toggleCollapse.bind(this)
     this.toggleModal = this.toggleModal.bind(this)
+    this.toggleModalDelete = this.toggleModalDelete.bind(this)
     this.handleAdd = this.handleAdd.bind(this)
+    this.handleDeleteFriend = this.handleDeleteFriend.bind(this)
   }
 
   componentDidMount() {
@@ -48,6 +51,10 @@ class Friends extends Component {
     this.props.searchFriend(this.state.username)
   }
 
+  handleDeleteFriend(friendId) {
+    this.props.deleteFriend(this.props.userId, friendId)
+  }
+
   toggleCollapse() {
     this.setState(prevState => ({collapse: !prevState.collapse}))
   }
@@ -55,6 +62,12 @@ class Friends extends Component {
   toggleModal() {
     this.setState(prevState => ({
       modal: !prevState.modal
+    }))
+  }
+
+  toggleModalDelete() {
+    this.setState(prevState => ({
+      modalDelete: !prevState.modalDelete
     }))
   }
 
@@ -80,7 +93,40 @@ class Friends extends Component {
               {/* <Card> */}
               <CardBody>
                 <CardTitle>
-                  <Button close />
+                  <Button
+                    close
+                    // onClick={() => this.handleDeleteFriend(friend.id)}
+                    onClick={this.toggleModalDelete}
+                  />
+                  <Modal
+                    isOpen={this.state.modalDelete}
+                    toggle={this.toggleModalDelete}
+                    className={this.props.className}
+                  >
+                    <ModalHeader toggle={this.toggleModalDelete}>
+                      Delete Friend?
+                    </ModalHeader>
+                    <ModalBody>
+                      Do you want to delete this person from friends?
+                    </ModalBody>
+                    <ModalFooter>
+                      <Button
+                        color="primary"
+                        onClick={() => {
+                          this.handleDeleteFriend(friend.id)
+                          this.toggleModalDelete()
+                        }}
+                      >
+                        Yes
+                      </Button>{' '}
+                      <Button
+                        color="secondary"
+                        onClick={this.toggleModalDelete}
+                      >
+                        Cancel
+                      </Button>
+                    </ModalFooter>
+                  </Modal>
                 </CardTitle>
                 <CardText>
                   <div className="circle_image_friend">
@@ -166,7 +212,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getMyFriends: userId => dispatch(getMyFriends(userId)),
   searchFriend: username => dispatch(searchFriend(username)),
-  postNotif: newNotif => dispatch(postNotif(newNotif))
+  postNotif: newNotif => dispatch(postNotif(newNotif)),
+  deleteFriend: (userId, friendId) => dispatch(deleteFriend(userId, friendId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Friends)

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getNotifs} from '../store/notifications'
+import {getNotifs, updateStatus} from '../store/notifications'
 import {addFriend} from '../store/user'
 import {addMember} from '../store/groups'
 import {Container, Button} from 'reactstrap'
@@ -10,19 +10,26 @@ class Notifications extends Component {
     super()
     this.handleAccept = this.handleAccept.bind(this)
     this.handleAcceptGroup = this.handleAcceptGroup.bind(this)
+    this.handleReject = this.handleReject.bind(this)
   }
 
   componentDidMount() {
     this.props.getNotifs(this.props.userId)
   }
 
-  handleAccept(friendId) {
+  handleAccept(friendId, notifId) {
     this.props.addFriend(this.props.userId, friendId)
+    this.props.updateStatus(notifId, {status: 'Accepted', clear: 'TRUE'})
   }
 
   handleAcceptGroup(groupId) {
     this.props.addMember(this.props.userId, groupId)
   }
+
+  handleReject(notifId) {
+    this.props.updateStatus(notifId, {status: 'Rejected', clear: 'TRUE'})
+  }
+
   render() {
     if (!this.props.notifs) {
       this.props.notifs = []
@@ -36,10 +43,14 @@ class Notifications extends Component {
               notif.status === 'Pending' && notif.invite === 'friend' ? (
                 <li>
                   {notif.content}
-                  <Button onClick={() => this.handleAccept(notif.senderId)}>
+                  <Button
+                    onClick={() => this.handleAccept(notif.senderId, notif.id)}
+                  >
                     Accept
                   </Button>
-                  <Button>Decline</Button>
+                  <Button onClick={() => this.handleReject(notif.id)}>
+                    Decline
+                  </Button>
                 </li>
               ) : null
           )}
@@ -71,7 +82,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getNotifs: userId => dispatch(getNotifs(userId)),
   addFriend: (userId, friendId) => dispatch(addFriend(userId, friendId)),
-  addMember: (groupId, userId) => addMember(groupId, userId)
+  addMember: (groupId, userId) => addMember(groupId, userId),
+  updateStatus: (notifId, data) => dispatch(updateStatus(notifId, data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Notifications)

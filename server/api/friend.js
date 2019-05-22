@@ -53,4 +53,30 @@ router.post('/:id', isAuthenticated, async (req, res, next) => {
   }
 })
 
+router.delete('/:id', isAuthenticated, async (req, res, next) => {
+  try {
+    await Friend.destroy({
+      where: {
+        userId: req.body.userId,
+        friendId: req.body.friendId
+      }
+    })
+    await Friend.destroy({
+      where: {
+        userId: req.body.friendId,
+        friendId: req.body.userId
+      }
+    })
+    const friend = await User.findAll({
+      where: {
+        id: req.body.friendId
+      },
+      attributes: ['id', 'firstName', 'lastName', 'image']
+    })
+    res.send(friend[0])
+  } catch (error) {
+    next(error)
+  }
+})
+
 module.exports = router
