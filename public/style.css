@@ -1,3 +1,8 @@
+#barStyle {
+  border: 2px solid black;
+  width: 100%;
+}
+
 #userHome {
   font-family: futura-pt, sans-serif;
   border: 2px solid #dddddd;
