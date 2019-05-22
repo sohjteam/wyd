@@ -20,10 +20,10 @@ class UserHome extends Component {
     return (
       <>
         <Container id="userHome">
+          <Setting />
           <Row>
             <Col xs="6">
               {'    '}
-              <Setting />
               <div id="profile">
                 <div className="circle_image">
                   <img src={user.image} id="myProPic" />

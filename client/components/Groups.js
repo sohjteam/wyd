@@ -3,6 +3,8 @@ import {connect} from 'react-redux'
 // import {Link} from 'react-router-dom'
 import SingleGroup from './SingleGroup'
 import {getMyGroups} from '../store/groups'
+import Events from './Events'
+
 import {
   Container,
   Col,
@@ -15,7 +17,10 @@ import {
   Button,
   Modal,
   ModalHeader,
-  ModalBody
+  ModalBody,
+  Card,
+  CardTitle,
+  CardText
 } from 'reactstrap'
 import classnames from 'classnames'
 import GroupForm from './GroupForm'
@@ -63,6 +68,7 @@ class Groups extends Component {
     if (!this.props.myGroups) {
       this.props.myGroups = []
     }
+
     return (
       <div>
         <Nav tabs style={barStyle}>
@@ -78,6 +84,7 @@ class Groups extends Component {
               All
             </NavLink>
           </NavItem>
+
           {this.props.myGroups.map(group => (
             <NavItem key={group.id}>
               <NavLink
@@ -100,32 +107,57 @@ class Groups extends Component {
             {this.state.activeTab !== 'all' ? (
               <SingleGroup groupId={this.state.activeTab} />
             ) : (
-              <Container>
-                <Col s="auto">
-                  <h1 className="title">My Groups</h1>
-                  {this.props.myGroups.map(group => (
-                    <div key={group.id}>
-                      <h1 className="header">Group: </h1>
-                      {/* <Link to={`/groups/${group.id}`}> */}
-                      <img src={group.image} width="150" />
-                      <p>{group.name}</p>
-                      {/* </Link> */}
-                    </div>
-                  ))}
-                </Col>
-              </Container>
+              <div id="groupevent">
+                <Container>
+                  <Row>
+                    <Col xs="6">
+                      <h3>My Groups</h3>
+                      <div id="groups">
+                        {this.props.myGroups.map(group => (
+                          <div key={group.id}>
+                            <Card body id="cardgroup">
+                              <CardTitle className="title">
+                                {' '}
+                                {group.name}
+                              </CardTitle>
+                              <CardText>
+                                <img src={group.image} width="50" />
+                              </CardText>
+                            </Card>
+
+                            {/* <Link to={`/groups/${group.id}`}> */}
+                            {/* </Link> */}
+                          </div>
+                        ))}
+                        <Button id="groupAdd" onClick={this.toggleForm}>
+                          Add Group
+                          <Modal
+                            isOpen={this.state.modal}
+                            toggle={this.toggleForm}
+                          >
+                            <ModalHeader toggle={this.toggleForm}>
+                              Add New Group
+                            </ModalHeader>
+                            <ModalBody>
+                              <GroupForm groupId={this.props.groupId} />
+                            </ModalBody>
+                          </Modal>
+                        </Button>
+                      </div>
+                    </Col>
+
+                    <Col xs="6">
+                      <h3 id="eventsH3">My Events</h3>
+                      <div id="events">
+                        <Events />
+                      </div>
+                    </Col>
+                  </Row>
+                </Container>
+              </div>
             )}
           </TabPane>
         </TabContent>
-        <Button onClick={this.toggleForm}>
-          Add Group
-          <Modal isOpen={this.state.modal} toggle={this.toggleForm}>
-            <ModalHeader toggle={this.toggleForm}>Add New Group</ModalHeader>
-            <ModalBody>
-              <GroupForm groupId={this.props.groupId} />
-            </ModalBody>
-          </Modal>
-        </Button>
       </div>
     )
   }

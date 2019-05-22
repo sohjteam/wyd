@@ -13,7 +13,41 @@
   text-align: center;
   padding: 5%;
 }
+#groupevent {
+  margin-top: 5%;
+  height: 50%;
+}
+#groups {
+  position: relative;
+  padding: 5%;
+  border-left: 20px solid #b6d2e4;
+  border-top: 20px solid #f0edeb;
+  height: 100%;
+  margin-right: 8%;
+}
+#groupAdd {
+  width: 100%;
+  margin-top: 5%;
+  background-color: #b6d2e4;
+}
+#cardgroup {
+  margin-bottom: 3%;
+}
+#events {
+  position: relative;
+  padding: 5%;
+  border-left: 20px solid #b6d2e4;
+  border-top: 20px solid #f0edeb;
+  margin-left: 8%;
+}
 
+#eventsH3 {
+  margin-left: 8%;
+}
+.title {
+  font-weight: 500;
+  font-size: 1.5em;
+}
 #notifs {
   height: 100px;
   margin-top: 5%;
@@ -21,9 +55,6 @@
   background-color: #b6d2e4;
 }
 
-#userEvents {
-  border: 2px solid red;
-}
 .circle_image {
   display: inline-block;
   position: relative;

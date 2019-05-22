@@ -143,7 +143,6 @@ class Friends extends Component {
         </CardGroup>
         <h3 className="header">Add Friend:</h3>
         <Form onSubmit={this.handleSubmit}>
-          <Label for="friendSearch">Search:</Label>
           <Input
             id="addFriend"
             placeholder="Search Username"
