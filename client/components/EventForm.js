@@ -19,6 +19,7 @@ class EventForm extends Component {
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleAdd = this.handleAdd.bind(this)
   }
 
   componentDidMount() {
@@ -57,21 +58,25 @@ class EventForm extends Component {
     }
 
     await this.props.addNewEvent(newEvent)
+
+    this.handleAdd()
   }
+
   handleAdd = () => {
-    console.log('HEEEE', this.props.myEvents[this.props.myEvents.length - 1])
+    const event = this.props.myEvents[this.props.myEvents.length - 1]
     this.props.members.map(friend => {
-      this.props.postNotif({
-        content: `${
-          this.props.user.username
-        } wants to add you to a new event : ${this.state.name} - ${
-          this.state.type
-        }`,
-        invite: 'event',
-        userId: friend,
-        senderId: this.props.userId
-        // eventId: .id
-      })
+      if (friend.id !== this.props.userId)
+        this.props.postNotif({
+          content: `${
+            this.props.user.username
+          } wants to add you to a new event : ${this.state.name} - ${
+            this.state.type
+          }`,
+          invite: 'event',
+          userId: friend.id,
+          senderId: this.props.userId,
+          eventId: event.id
+        })
     })
   }
 

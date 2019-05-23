@@ -58,7 +58,7 @@ router.post('/', async (req, res, next) => {
       groupId: req.body.groupId
     })
 
-    console.log('HEEEE', req.body)
+    // console.log('HEEEE', req.body)
     // await EventUsers.create({
     //   userId: req.body.userId,
     //   eventId: newEvent.id
