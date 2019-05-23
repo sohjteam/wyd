@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getMyEvents} from '../store/events'
-import {Collapse, Button, CardBody, Card, CardTitle, CardText} from 'reactstrap'
+import {Collapse, CardBody, Card, CardTitle} from 'reactstrap'
 
 class Events extends Component {
   constructor(props) {

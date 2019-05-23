@@ -114,57 +114,69 @@ class SingleGroup extends Component {
         <Container fluid>
           <Row>
             <Col sm="3" style={memStyle}>
-              <img src={group.image} height="150" />
-              <h1 className="title">{group.name}</h1>
-              <Button onClick={this.toggle}>
-                Add Event
-                <Modal isOpen={this.state.modal} toggle={this.toggle}>
-                  <ModalHeader toggle={this.toggle}>Add An Event!</ModalHeader>
-                  <ModalBody>
-                    <EventForm groupId={this.props.groupId} />
-                  </ModalBody>
-                </Modal>
-              </Button>
+              <h1 className="header">{group.name}</h1>
+              <br />
+              <div id="groupInfo">
+                <img id="memberphoto" src={group.image} height="150" />
+                <br />
+                <Button id="clearButton" onClick={this.toggle}>
+                  Add Event
+                  <Modal isOpen={this.state.modal} toggle={this.toggle}>
+                    <ModalHeader toggle={this.toggle}>
+                      Add An Event!
+                    </ModalHeader>
+                    <ModalBody>
+                      <EventForm
+                        groupId={this.props.groupId}
+                        members={this.props.members}
+                      />
+                    </ModalBody>
+                  </Modal>
+                </Button>
+              </div>
+              <div id="members">
+                <h3 className="header">Members: </h3>
 
-              <h3>Members: </h3>
-              {members.map(member => (
-                <li key={member.id}>
-                  <img src={member.image} height="150" />
-                  {member.firstName} {member.lastName}
-                </li>
-              ))}
-              <Button onClick={this.toggleMembers}>
-                Add Members
-                <Modal
-                  isOpen={this.state.modalMembers}
-                  toggle={this.toggleMembers}
-                >
-                  <ModalHeader toggle={this.toggleMembers}>
-                    Add Members!
-                  </ModalHeader>
-                  <ModalBody>
-                    <Form onSubmit={this.handleAdd}>
-                      <FormGroup>
-                        <Label for="friendList">Select Friends</Label>
+                {members.map(member => (
+                  <div key={member.id}>
+                    <img id="memberphoto" src={member.image} height="100" />
+                    {member.firstName} {member.lastName}
+                    <br />
+                  </div>
+                ))}
 
-                        <Input
-                          type="select"
-                          id="exampleSelectMulti"
-                          multiple
-                          onClick={this.handleSelect}
-                        >
-                          {this.props.userFriends.map(friend => (
-                            <option key={friend.id} value={friend.id}>
-                              {friend.username}
-                            </option>
-                          ))}
-                        </Input>
-                      </FormGroup>
-                      <Button type="submit">Submit</Button>
-                    </Form>
-                  </ModalBody>
-                </Modal>
-              </Button>
+                <Button id="clearButton" onClick={this.toggleMembers}>
+                  Add Members
+                  <Modal
+                    isOpen={this.state.modalMembers}
+                    toggle={this.toggleMembers}
+                  >
+                    <ModalHeader toggle={this.toggleMembers}>
+                      Add Members!
+                    </ModalHeader>
+                    <ModalBody>
+                      <Form onSubmit={this.handleAdd}>
+                        <FormGroup>
+                          <Label for="friendList">Select Friends</Label>
+                          <Input
+                            type="select"
+                            id="exampleSelectMulti"
+                            multiple
+                            onClick={this.handleSelect}
+                          >
+                            {this.props.userFriends.map(friend => (
+                              <option key={friend.id} value={friend.id}>
+                                {friend.username}
+                              </option>
+                            ))}
+                          </Input>
+                        </FormGroup>
+                        <Button type="submit">Submit</Button>
+                      </Form>
+                    </ModalBody>
+                  </Modal>
+                </Button>
+              </div>
             </Col>
 
             <Col style={CalStyle}>

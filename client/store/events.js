@@ -34,7 +34,16 @@ export const getGroupEvents = groupId => async dispatch => {
 export const addNewEvent = newEvent => async dispatch => {
   try {
     const res = await axios.post('/api/events/', newEvent)
+    console.log('IN STORE', res.data)
     dispatch(addedEvent(res.data))
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const addEventMember = async (userId, eventId) => {
+  try {
+    await axios.post(`/api/events/${userId}/${eventId}`)
   } catch (error) {
     console.log(error)
   }

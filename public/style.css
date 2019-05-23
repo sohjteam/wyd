@@ -33,7 +33,7 @@ div {
   height: 100%;
   margin-right: 8%;
 }
-#groupAdd {
+#buttonblue {
   width: 100%;
   margin-top: 5%;
   background-color: #b6d2e4;
@@ -68,7 +68,6 @@ div {
   height: 200px;
   overflow: hidden;
   border-radius: 50%;
-  margin: 10% auto 10% auto;
   border: 4px solid #b6d2e4;
 }
 .circle_image_friend {
@@ -79,6 +78,7 @@ div {
   overflow: hidden;
   border-radius: 50%;
   margin: 15% auto 15% auto;
+  border: 5px solid #b6d2e4;
 }
 
 #myProPic {
@@ -132,4 +132,22 @@ div {
   background-color: white;
   margin: 2%;
   color: black;
+}
+
+#friendlist {
+  position: relative;
+  text-align: center;
+}
+
+#groupInfo {
+  margin-top: 2%;
+}
+
+#members {
+  margin-top: 5%;
+}
+#memberphoto {
+  margin-left: 2%;
+  margin-top: 5%;
+  margin-right: 5%;
 }

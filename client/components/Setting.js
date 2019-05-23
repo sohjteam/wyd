@@ -84,7 +84,7 @@ class Setting extends Component {
                       value={this.state.password}
                     />
                   </FormGroup>
-                  <Button>Continue</Button>
+                  <Button id="buttonblue">Continue</Button>
                 </Form>
               </ModalBody>
             </>

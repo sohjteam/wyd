@@ -51,7 +51,6 @@ router.get('/:id/events', async (req, res, next) => {
 
 router.post('/:id/:groupId', async (req, res, next) => {
   try {
-    console.log('AYO', req.body)
     await GroupUsers.create({
       userId: req.body.userId,
       groupId: req.body.groupId

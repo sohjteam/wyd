@@ -89,7 +89,7 @@ class UserUpdate extends Component {
             <Label for="image">Image Upload</Label>
             <Input type="file" name="image" onChange={this.handleChange} />
           </FormGroup>
-          <Button>Submit Update</Button>
+          <Button id="buttonblue">Submit Update</Button>
         </Form>
       </>
     )

@@ -1,5 +1,7 @@
 const router = require('express').Router()
 const {Event, Group, User} = require('../db/models')
+const db = require('../db')
+const EventUsers = db.models.eventUsers
 
 router.get('/:id', async (req, res, next) => {
   try {
@@ -46,13 +48,37 @@ router.get('/:id/group', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const newEvent = await Event.create(req.body)
-    res.json(newEvent)
+    const newEvent = await Event.create({
+      name: req.body.name,
+      type: req.body.type,
+      startDate: req.body.startDate,
+      endDate: req.body.endDate,
+      link: req.body.url,
+      location: req.body.location,
+      groupId: req.body.groupId
+    })
+
+    console.log('HEEEE', req.body)
+    // await EventUsers.create({
+    //   userId: req.body.userId,
+    //   eventId: newEvent.id
+    // })
+    res.send(newEvent)
   } catch (error) {
     next(error)
   }
 })
 
+router.post('/:id/:eventId', async (req, res, next) => {
+  try {
+    await EventUsers.create({
+      userId: req.body.userId,
+      eventId: req.body.eventId
+    })
+  } catch (error) {
+    next(error)
+  }
+})
 router.put('/:id', async (req, res, next) => {
   try {
     const eventId = req.params.id

@@ -10,7 +10,6 @@ import {
   CardGroup,
   CardTitle,
   Form,
-  Label,
   Input,
   Collapse,
   Modal,
@@ -90,7 +89,6 @@ class Friends extends Component {
         <CardGroup>
           {this.props.friends.map(friend => (
             <>
-              {/* <Card> */}
               <CardBody>
                 <CardTitle>
                   <Button
@@ -128,20 +126,21 @@ class Friends extends Component {
                     </ModalFooter>
                   </Modal>
                 </CardTitle>
-                <CardText>
-                  <div className="circle_image_friend">
-                    <img src={friend.image} width="100" id="friendsPic" />
-                  </div>
-                  <p>
-                    {friend.firstName} {friend.lastName}
-                  </p>
-                </CardText>
+                <Card>
+                  <CardText id="friendlist">
+                    <div className="circle_image_friend">
+                      <img src={friend.image} width="100" id="friendsPic" />
+                    </div>
+                    <p>
+                      {friend.firstName} {friend.lastName}
+                    </p>
+                  </CardText>
+                </Card>
               </CardBody>
-              {/* </Card> */}
             </>
           ))}
         </CardGroup>
-        <h3 className="header">Add Friend:</h3>
+        <h3 className="subHeader">Add Friend:</h3>
         <Form onSubmit={this.handleSubmit}>
           <Input
             id="addFriend"

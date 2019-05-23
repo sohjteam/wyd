@@ -129,7 +129,7 @@ class Groups extends Component {
                             {/* </Link> */}
                           </div>
                         ))}
-                        <Button id="groupAdd" onClick={this.toggleForm}>
+                        <Button id="buttonblue" onClick={this.toggleForm}>
                           Add Group
                           <Modal
                             isOpen={this.state.modal}
