@@ -22,7 +22,7 @@ router.get('/:id/members', async (req, res, next) => {
       include: [
         {
           model: User,
-          attributes: ['firstName', 'lastName', 'image'],
+          attributes: ['id', 'firstName', 'lastName', 'image'],
           through: {attributes: []}
         }
       ]
@@ -49,13 +49,19 @@ router.get('/:id/events', async (req, res, next) => {
   }
 })
 
-router.post('/:id/:groupId', async (req, res, next) => {
+router.post('/:id', async (req, res, next) => {
   try {
-    console.log('AYO', req.body)
     await GroupUsers.create({
       userId: req.body.userId,
       groupId: req.body.groupId
     })
+
+    const group = await Group.findAll({
+      where: {
+        id: req.body.groupId
+      }
+    })
+    res.send(group[0])
   } catch (error) {
     next(error)
   }

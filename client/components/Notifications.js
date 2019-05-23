@@ -3,7 +3,8 @@ import {connect} from 'react-redux'
 import {getNotifs, updateStatus} from '../store/notifications'
 import {addFriend} from '../store/user'
 import {addMember} from '../store/groups'
-import {Container, Button} from 'reactstrap'
+import {addEventMember} from '../store/events'
+import {Container, Button, Card, CardText, CardTitle} from 'reactstrap'
 
 class Notifications extends Component {
   constructor() {
@@ -22,8 +23,13 @@ class Notifications extends Component {
     this.props.updateStatus(notifId, {status: 'Accepted', clear: 'TRUE'})
   }
 
-  handleAcceptGroup(groupId) {
+  handleAcceptGroup(notifId, groupId) {
     this.props.addMember(this.props.userId, groupId)
+    this.props.updateStatus(notifId, {status: 'Accepted', clear: 'TRUE'})
+  }
+  handleAcceptEvent(notifId, eventId) {
+    this.props.addEventMember(this.props.userId, eventId)
+    this.props.updateStatus(notifId, {status: 'Accepted', clear: 'TRUE'})
   }
 
   handleReject(notifId) {
@@ -36,22 +42,38 @@ class Notifications extends Component {
     }
     const notifs = this.props.notifs
     return (
-      <>
+      <div id="notifs">
         <Container>
           {notifs.map(
             notif =>
               notif.status === 'Pending' && notif.invite === 'friend' ? (
-                <li>
-                  {notif.content}
-                  <Button
-                    onClick={() => this.handleAccept(notif.senderId, notif.id)}
-                  >
-                    Accept
-                  </Button>
-                  <Button onClick={() => this.handleReject(notif.id)}>
-                    Decline
-                  </Button>
-                </li>
+                <div>
+                  <Card body>
+                    <CardTitle>
+                      {notif.invite.charAt(0).toUpperCase() +
+                        notif.invite.slice(1)}{' '}
+                      Invitation
+                    </CardTitle>
+                    <CardText>
+                      {notif.content.charAt(0).toUpperCase() +
+                        notif.content.slice(1)}!
+                    </CardText>
+                    <Button
+                      id="clearButton"
+                      onClick={() =>
+                        this.handleAccept(notif.senderId, notif.id)
+                      }
+                    >
+                      Accept
+                    </Button>
+                    <Button
+                      id="clearButton"
+                      onClick={() => this.handleReject(notif.id)}
+                    >
+                      Decline
+                    </Button>
+                  </Card>
+                </div>
               ) : null
           )}
         </Container>
@@ -59,17 +81,71 @@ class Notifications extends Component {
           {notifs.map(
             notif =>
               notif.status === 'Pending' && notif.invite === 'group' ? (
-                <li>
-                  {notif.content}
-                  <Button onClick={() => this.handleAcceptGroup(notif.groupId)}>
-                    Accept
-                  </Button>
-                  <Button>Decline</Button>
-                </li>
+                <div>
+                  <Card body>
+                    <CardTitle>
+                      {notif.invite.charAt(0).toUpperCase() +
+                        notif.invite.slice(1)}{' '}
+                      Invitation
+                    </CardTitle>
+                    <CardText>
+                      {notif.content.charAt(0).toUpperCase() +
+                        notif.content.slice(1)}!
+                    </CardText>
+                    <Button
+                      id="clearButton"
+                      onClick={() =>
+                        this.handleAcceptGroup(notif.id, notif.groupId)
+                      }
+                    >
+                      Accept
+                    </Button>
+                    <Button
+                      id="clearButton"
+                      onClick={() => this.handleReject(notif.id)}
+                    >
+                      Decline
+                    </Button>
+                  </Card>
+                </div>
               ) : null
           )}
         </Container>
-      </>
+        <Container>
+          {notifs.map(
+            notif =>
+              notif.status === 'Pending' && notif.invite === 'event' ? (
+                <div>
+                  <Card body>
+                    <CardTitle>
+                      {notif.invite.charAt(0).toUpperCase() +
+                        notif.invite.slice(1)}{' '}
+                      Invitation
+                    </CardTitle>
+                    <CardText>
+                      {notif.content.charAt(0).toUpperCase() +
+                        notif.content.slice(1)}!
+                    </CardText>
+                    <Button
+                      id="clearButton"
+                      onClick={() =>
+                        this.handleAcceptEvent(notif.id, notif.eventId)
+                      }
+                    >
+                      Accept
+                    </Button>
+                    <Button
+                      id="clearButton"
+                      onClick={() => this.handleReject(notif.id)}
+                    >
+                      Decline
+                    </Button>
+                  </Card>
+                </div>
+              ) : null
+          )}
+        </Container>
+      </div>
     )
   }
 }
@@ -82,8 +158,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getNotifs: userId => dispatch(getNotifs(userId)),
   addFriend: (userId, friendId) => dispatch(addFriend(userId, friendId)),
-  addMember: (groupId, userId) => addMember(groupId, userId),
-  updateStatus: (notifId, data) => dispatch(updateStatus(notifId, data))
+  addMember: (userId, groupId) => dispatch(addMember(userId, groupId)),
+  updateStatus: (notifId, data) => dispatch(updateStatus(notifId, data)),
+  addEventMember: (userId, eventId) => dispatch(addEventMember(userId, eventId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Notifications)

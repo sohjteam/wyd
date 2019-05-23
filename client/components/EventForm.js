@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {addNewEvent, getMyEvents} from '../store/events'
 import {Form, FormGroup, Label, Input, Button} from 'reactstrap'
+import {postNotif} from '../store/notifications'
 
 class EventForm extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class EventForm extends Component {
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleAdd = this.handleAdd.bind(this)
   }
 
   componentDidMount() {
@@ -29,8 +31,10 @@ class EventForm extends Component {
       [evt.target.name]: evt.target.value
     })
   }
-  handleSubmit = evt => {
+
+  handleSubmit = async evt => {
     evt.preventDefault()
+
     const {
       name,
       type,
@@ -41,6 +45,7 @@ class EventForm extends Component {
       url,
       groupId
     } = this.state
+
     const newEvent = {
       name,
       type,
@@ -51,7 +56,28 @@ class EventForm extends Component {
       url,
       groupId
     }
-    this.props.addNewEvent(newEvent)
+
+    await this.props.addNewEvent(newEvent)
+
+    this.handleAdd()
+  }
+
+  handleAdd = () => {
+    const event = this.props.myEvents[this.props.myEvents.length - 1]
+    this.props.members.map(friend => {
+      if (friend.id !== this.props.userId)
+        this.props.postNotif({
+          content: `${
+            this.props.user.username
+          } wants to add you to a new event : ${this.state.name} - ${
+            this.state.type
+          }`,
+          invite: 'event',
+          userId: friend.id,
+          senderId: this.props.userId,
+          eventId: event.id
+        })
+    })
   }
 
   render() {
@@ -62,8 +88,8 @@ class EventForm extends Component {
     return (
       <>
         <Form id="eventForm" onSubmit={this.handleSubmit}>
-          <FormGroup>
-            <Label for="eventName">Event Name</Label>
+          <FormGroup onSubmit={this.handleAdd}>
+            <Label for="name">Event Name</Label>
             <Input
               id="eventNameText"
               placeholder="Event Name"
@@ -139,11 +165,12 @@ class EventForm extends Component {
 }
 const mapStateToProps = state => ({
   userId: state.user.user.id,
-
-  myEvents: state.events.myEvents
+  myEvents: state.events.myEvents,
+  user: state.user.user
 })
 const mapDispatchToProps = dispatch => ({
   getMyEvents: userId => dispatch(getMyEvents(userId)),
-  addNewEvent: newEvent => dispatch(addNewEvent(newEvent))
+  addNewEvent: newEvent => dispatch(addNewEvent(newEvent)),
+  postNotif: newNotif => dispatch(postNotif(newNotif))
 })
 export default connect(mapStateToProps, mapDispatchToProps)(EventForm)

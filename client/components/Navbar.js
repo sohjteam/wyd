@@ -57,13 +57,13 @@ class NavigationBar extends Component {
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink style={linkStyle} href="/events">
-                  Events
+                <NavLink style={linkStyle} href="/groups">
+                  Groups
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink style={linkStyle} href="/groups">
-                  Groups
+                <NavLink style={linkStyle} href="/settings">
+                  Settings
                 </NavLink>
               </NavItem>
               <NavItem>

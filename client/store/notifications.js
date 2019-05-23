@@ -17,7 +17,6 @@ const initialState = {
 export const getNotifs = userId => async dispatch => {
   try {
     const res = await axios.get(`/api/users/${userId}/notifications`)
-    console.log(res.data.notifications)
     dispatch(gotNotifs(res.data.notifications))
   } catch (error) {
     console.log(error)
