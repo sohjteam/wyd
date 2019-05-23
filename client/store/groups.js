@@ -3,10 +3,12 @@ import axios from 'axios'
 const GET_MY_GROUPS = 'GET_MY_GROUPS'
 const GET_SINGLE_GROUP = 'GET_SINGLE_GROUP'
 const ADD_NEW_GROUP = 'ADD_NEW_GROUP'
+const ADD_MEMBERS = 'ADD_MEMBERS'
 
 const gotMyGroups = groups => ({type: GET_MY_GROUPS, groups})
 const gotSingleGroup = group => ({type: GET_SINGLE_GROUP, group})
 const addedGroup = newGroup => ({type: ADD_NEW_GROUP, newGroup})
+const addedMembers = member => ({type: ADD_MEMBERS, member})
 
 const initialState = {
   groups: [],
@@ -44,9 +46,11 @@ export const addNewGroup = (newGroup, userId) => async dispatch => {
   }
 }
 
-export const addMember = async (userId, groupId) => {
+export const addMember = (userId, groupId) => async dispatch => {
   try {
-    await axios.post(`/api/groups/${userId}/${groupId}`, {groupId, userId})
+    const res = await axios.post(`/api/groups/${groupId}}`, {userId, groupId})
+
+    dispatch(addedMembers(res.data))
   } catch (error) {
     console.log(error)
   }
@@ -60,6 +64,8 @@ export default function(state = initialState, action) {
       return {...state, group: action.group, members: action.group.users}
     case ADD_NEW_GROUP:
       return {...state, groups: [...state.groups, action.newGroup]}
+    case ADD_MEMBERS:
+      return {...state, members: [...state.members, action.member]}
     default:
       return state
   }

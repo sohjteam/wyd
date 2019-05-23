@@ -23,8 +23,9 @@ class Notifications extends Component {
     this.props.updateStatus(notifId, {status: 'Accepted', clear: 'TRUE'})
   }
 
-  handleAcceptGroup(groupId) {
+  handleAcceptGroup(notifId, groupId) {
     this.props.addMember(this.props.userId, groupId)
+    this.props.updateStatus(notifId, {status: 'Accepted', clear: 'TRUE'})
   }
 
   handleReject(notifId) {
@@ -90,14 +91,14 @@ class Notifications extends Component {
                     <Button
                       id="clearButton"
                       onClick={() =>
-                        this.handleAccept(notif.senderId, notif.id)
+                        this.handleAcceptGroup(notif.id, notif.groupId)
                       }
                     >
                       Accept
                     </Button>
                     <Button
                       id="clearButton"
-                      onClick={() => this.handleAcceptGroup(notif.groupId)}
+                      onClick={() => this.handleReject(notif.id)}
                     >
                       Decline
                     </Button>
@@ -131,7 +132,7 @@ class Notifications extends Component {
                     </Button>
                     <Button
                       id="clearButton"
-                      onClick={() => this.handleAcceptGroup(notif.groupId)}
+                      onClick={this.handleReject(notif.id)}
                     >
                       Decline
                     </Button>
@@ -153,7 +154,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getNotifs: userId => dispatch(getNotifs(userId)),
   addFriend: (userId, friendId) => dispatch(addFriend(userId, friendId)),
-  addMember: (groupId, userId) => addMember(groupId, userId),
+  addMember: (userId, groupId) => dispatch(addMember(userId, groupId)),
   updateStatus: (notifId, data) => dispatch(updateStatus(notifId, data))
 })
 

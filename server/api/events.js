@@ -57,12 +57,6 @@ router.post('/', async (req, res, next) => {
       location: req.body.location,
       groupId: req.body.groupId
     })
-
-    // console.log('HEEEE', req.body)
-    // await EventUsers.create({
-    //   userId: req.body.userId,
-    //   eventId: newEvent.id
-    // })
     res.send(newEvent)
   } catch (error) {
     next(error)

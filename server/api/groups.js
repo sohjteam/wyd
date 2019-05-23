@@ -49,12 +49,19 @@ router.get('/:id/events', async (req, res, next) => {
   }
 })
 
-router.post('/:id/:groupId', async (req, res, next) => {
+router.post('/:id', async (req, res, next) => {
   try {
     await GroupUsers.create({
       userId: req.body.userId,
       groupId: req.body.groupId
     })
+
+    const group = await Group.findAll({
+      where: {
+        id: req.body.groupId
+      }
+    })
+    res.send(group[0])
   } catch (error) {
     next(error)
   }
