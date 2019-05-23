@@ -3,14 +3,17 @@ import axios from 'axios'
 const GET_MY_EVENTS = 'GET_MY_EVENTS'
 const GET_GROUP_EVENTS = 'GET_GROUP_EVENTS'
 const ADD_NEW_EVENT = 'ADD_NEW_EVENT'
+const ADD_EVENT_MEMBERS = 'ADD_EVENT_MEMBERS'
 
 const gotMyEvents = myEvents => ({type: GET_MY_EVENTS, myEvents})
 const gotGroupEvents = groupEvents => ({type: GET_GROUP_EVENTS, groupEvents})
 const addedEvent = newEvent => ({type: ADD_NEW_EVENT, newEvent})
+const addedMembers = member => ({type: ADD_EVENT_MEMBERS, member})
 
 const initialState = {
   myEvents: [],
-  groupEvents: []
+  groupEvents: [],
+  members: []
 }
 
 export const getMyEvents = userId => async dispatch => {
@@ -34,16 +37,16 @@ export const getGroupEvents = groupId => async dispatch => {
 export const addNewEvent = newEvent => async dispatch => {
   try {
     const res = await axios.post('/api/events/', newEvent)
-    console.log('IN STORE', res.data)
     dispatch(addedEvent(res.data))
   } catch (error) {
     console.log(error)
   }
 }
 
-export const addEventMember = async (userId, eventId) => {
+export const addEventMember = (userId, eventId) => async dispatch => {
   try {
-    await axios.post(`/api/events/${userId}/${eventId}`)
+    const res = await axios.post(`/api/events/${eventId}`, {userId, eventId})
+    dispatch(addedMembers(res.data))
   } catch (error) {
     console.log(error)
   }
@@ -57,6 +60,8 @@ export default function(state = initialState, action) {
       return {...state, groupEvents: action.groupEvents}
     case ADD_NEW_EVENT:
       return {...state, myEvents: [...state.myEvents, action.newEvent]}
+    case ADD_EVENT_MEMBERS:
+      return {...state, members: [...state.members, action.member]}
 
     default:
       return state

@@ -48,7 +48,7 @@ export const addNewGroup = (newGroup, userId) => async dispatch => {
 
 export const addMember = (userId, groupId) => async dispatch => {
   try {
-    const res = await axios.post(`/api/groups/${groupId}}`, {userId, groupId})
+    const res = await axios.post(`/api/groups/${groupId}`, {userId, groupId})
 
     dispatch(addedMembers(res.data))
   } catch (error) {

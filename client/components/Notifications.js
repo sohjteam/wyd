@@ -27,6 +27,10 @@ class Notifications extends Component {
     this.props.addMember(this.props.userId, groupId)
     this.props.updateStatus(notifId, {status: 'Accepted', clear: 'TRUE'})
   }
+  handleAcceptEvent(notifId, eventId) {
+    this.props.addEventMember(this.props.userId, eventId)
+    this.props.updateStatus(notifId, {status: 'Accepted', clear: 'TRUE'})
+  }
 
   handleReject(notifId) {
     this.props.updateStatus(notifId, {status: 'Rejected', clear: 'TRUE'})
@@ -125,14 +129,14 @@ class Notifications extends Component {
                     <Button
                       id="clearButton"
                       onClick={() =>
-                        this.handleAccept(notif.senderId, notif.id)
+                        this.handleAcceptEvent(notif.id, notif.eventId)
                       }
                     >
                       Accept
                     </Button>
                     <Button
                       id="clearButton"
-                      onClick={this.handleReject(notif.id)}
+                      onClick={() => this.handleReject(notif.id)}
                     >
                       Decline
                     </Button>
@@ -155,7 +159,8 @@ const mapDispatchToProps = dispatch => ({
   getNotifs: userId => dispatch(getNotifs(userId)),
   addFriend: (userId, friendId) => dispatch(addFriend(userId, friendId)),
   addMember: (userId, groupId) => dispatch(addMember(userId, groupId)),
-  updateStatus: (notifId, data) => dispatch(updateStatus(notifId, data))
+  updateStatus: (notifId, data) => dispatch(updateStatus(notifId, data)),
+  addEventMember: (userId, eventId) => dispatch(addEventMember(userId, eventId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Notifications)

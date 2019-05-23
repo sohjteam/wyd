@@ -87,7 +87,6 @@ class EventForm extends Component {
 
     return (
       <>
-        {console.log('myevents', this.props.myEvents)}{' '}
         <Form id="eventForm" onSubmit={this.handleSubmit}>
           <FormGroup onSubmit={this.handleAdd}>
             <Label for="name">Event Name</Label>

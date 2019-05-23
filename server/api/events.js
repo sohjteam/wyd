@@ -46,6 +46,23 @@ router.get('/:id/group', async (req, res, next) => {
   }
 })
 
+router.post('/:id', async (req, res, next) => {
+  try {
+    await EventUsers.create({
+      userId: req.body.userId,
+      eventId: req.body.eventId
+    })
+    const event = await Event.findAll({
+      where: {
+        id: req.body.eventId
+      }
+    })
+    res.send(event[0])
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.post('/', async (req, res, next) => {
   try {
     const newEvent = await Event.create({
@@ -57,22 +74,13 @@ router.post('/', async (req, res, next) => {
       location: req.body.location,
       groupId: req.body.groupId
     })
+
     res.send(newEvent)
   } catch (error) {
     next(error)
   }
 })
 
-router.post('/:id/:eventId', async (req, res, next) => {
-  try {
-    await EventUsers.create({
-      userId: req.body.userId,
-      eventId: req.body.eventId
-    })
-  } catch (error) {
-    next(error)
-  }
-})
 router.put('/:id', async (req, res, next) => {
   try {
     const eventId = req.params.id
