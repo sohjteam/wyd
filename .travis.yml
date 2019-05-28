@@ -14,14 +14,17 @@ notifications:
 install:
   - npm ci # faster, goes only from package-lock
 before_script:
+  - psql -c 'create database "boilermaker-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
+
+before_deploy:
+  - npm run build-client # make the bundle
+  - rm -rf node_modules # omit from the tarball, since we skip cleanup
+deploy:
+  skip_cleanup: true # prevents travis from deleting the build
+  provider: heroku
+  app: wyd-website # see README
+  api_key:
+    secure: 'c4286d92-09ac-4a6f-ad40-943596d4e828' # see README
+
   - psql -c 'create database "wyd-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 
-# before_deploy:
-#   - npm run build-client # make the bundle
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: wyd-website # see README
-#   api_key:
-#     secure: 843b16ef-49ee-4979-a680-c7db0e87c11f # see README
