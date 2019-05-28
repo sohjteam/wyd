@@ -24,4 +24,4 @@ deploy:
   provider: heroku
   app: wyd-website # see README
   api_key:
-    secure: c4286d92-09ac-4a6f-ad40-943596d4e828 # see README
+    secure: 'c4286d92-09ac-4a6f-ad40-943596d4e828' # see README
