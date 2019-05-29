@@ -22,6 +22,6 @@ before_deploy:
 deploy:
   skip_cleanup: true # prevents travis from deleting the build
   provider: heroku
-  app: wyd-website # see README
+  app: wyd-web # see README
   api_key:
-    secure: 5bea907a-af8d-4cfc-b3d5-0249958315c8 # see README
+    secure: 199eb44f-dc61-4640-bf0f-b95afb9d1375 # see README
