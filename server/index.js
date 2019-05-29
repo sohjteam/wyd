@@ -1,7 +1,7 @@
 const path = require('path')
 const express = require('express')
 const db = require('./db')
-const PORT = 8000
+const PORT = process.env.PORT || 8000
 const app = express()
 const morgan = require('morgan')
 const passport = require('passport')
@@ -63,7 +63,7 @@ app.use((req, res, next) => {
 
 db.sync().then(() => {
   console.log('db synced')
-  app.listen(process.env.PORT || PORT, () => {
+  app.listen(PORT, () => {
     console.log(`Time to study, buddy ${PORT}`)
   })
 })
