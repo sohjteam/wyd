@@ -33,11 +33,11 @@ router.get('/:username', isLoggedIn, async (req, res, next) => {
 
 router.post('/:id', isAuthenticated, async (req, res, next) => {
   try {
-    const friendship = await Friend.create({
+    await Friend.create({
       userId: req.body.userId,
       friendId: req.body.friendId
     })
-    const friendship2 = await Friend.create({
+    await Friend.create({
       userId: req.body.friendId,
       friendId: req.body.userId
     })
