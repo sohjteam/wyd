@@ -63,7 +63,7 @@ app.use((req, res, next) => {
 
 db.sync().then(() => {
   console.log('db synced')
-  app.listen(PORT, () => {
+  app.listen(process.env.PORT || PORT, () => {
     console.log(`Time to study, buddy ${PORT}`)
   })
 })
