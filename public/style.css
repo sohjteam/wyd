@@ -20,7 +20,7 @@ div {
   position: fixed;
 }
 #loginPic {
-  margin-top: 8%;
+  margin-top: 6%;
   width: 30%;
   height: auto;
 }
@@ -28,6 +28,7 @@ div {
   width: 50%;
   height: auto;
   padding: 5%;
+  padding-bottom: 2%;
   border-radius: 25px;
   background-color: white;
   margin-top: 1%;
