@@ -1,12 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {createUser} from '../store/user'
-import {Container, Form, FormGroup, Col, Label, Button, Input} from 'reactstrap'
-
-const conStyle = {
-  marginTop: '20vh',
-  width: '40vw'
-}
+import {Link} from 'react-router-dom'
+import {Form, FormGroup, Col, Label, Button, Input} from 'reactstrap'
 
 class Signup extends Component {
   constructor() {
@@ -38,11 +34,11 @@ class Signup extends Component {
   }
   render() {
     return (
-      <Container style={conStyle}>
-        <Form onSubmit={this.handleSubmit}>
-          <Col md={{size: 6, offset: 5}}>
-            <h2>Signup</h2>
-          </Col>
+      <div id="login">
+        <img id="loginPic" src="wydWeb.png" />
+        <Form onSubmit={this.handleSubmit} id="conStyle">
+          <h2>Signup</h2>
+
           <FormGroup row>
             <Label for="email" sm={3}>
               Email
@@ -113,11 +109,13 @@ class Signup extends Component {
               />
             </Col>
           </FormGroup>
-          <Col md={{size: 6, offset: 5}}>
-            <Button>Submit</Button>
-          </Col>
+
+          <Button id="clearButton">Submit</Button>
+          <Link to="/login">
+            <Button id="clearButton">Have an Account?</Button>
+          </Link>
         </Form>
-      </Container>
+      </div>
     )
   }
 }

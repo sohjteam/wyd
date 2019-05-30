@@ -5,6 +5,7 @@ import {getSingleGroup} from '../store/groups'
 import {getMyFriends} from '../store/user'
 import EventForm from './EventForm'
 import {postNotif} from '../store/notifications'
+import SingleEvent from './SingleEvent'
 
 import {
   Container,

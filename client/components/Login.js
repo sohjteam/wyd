@@ -2,17 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {auth} from '../store/user'
 import {Link} from 'react-router-dom'
-import {Container, Form, FormGroup, Label, Col, Input, Button} from 'reactstrap'
-
-const conStyle = {
-  marginTop: '20vh',
-  width: '40vw'
-}
-
-const buttonStyle = {
-  marginRight: 20,
-  width: 100
-}
+import {Form, FormGroup, Label, Col, Input, Button} from 'reactstrap'
 
 class Login extends Component {
   constructor() {
@@ -40,11 +30,10 @@ class Login extends Component {
   render() {
     const error = this.props.error
     return (
-      <Container style={conStyle}>
-        <Form onSubmit={this.handleSubmit}>
-          <Col md={{size: 6, offset: 5}}>
-            <h2>Login</h2>
-          </Col>
+      <div id="login">
+        <img id="loginPic" src="wydWeb.png" />
+        <Form id="conStyle" onSubmit={this.handleSubmit}>
+          <h2>Login</h2>
           <FormGroup row>
             <Label for="email" sm={2}>
               Email
@@ -75,15 +64,13 @@ class Login extends Component {
             </Col>
           </FormGroup>
 
-          <Col md={{size: 12, offset: 3}}>
-            <Button style={buttonStyle}>Submit</Button>
+          <Button id="clearButton">Submit</Button>
 
-            <Link to="/signup">
-              <Button>Create an Account</Button>
-            </Link>
-          </Col>
+          <Link to="/signup">
+            <Button id="clearButton">Create an Account</Button>
+          </Link>
         </Form>
-      </Container>
+      </div>
     )
   }
 }
