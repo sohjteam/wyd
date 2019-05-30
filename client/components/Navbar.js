@@ -44,46 +44,48 @@ class NavigationBar extends Component {
   render() {
     return (
       <div>
-        <Navbar style={barStyle} light expand="md">
-          <NavbarBrand href="/">
-            <img src="wydWeb.png" width="100" height="40" />
-          </NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
-              <NavItem>
-                <NavLink style={linkStyle} href="/userhome">
-                  Home
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink style={linkStyle} href="/groups">
-                  Groups
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink style={linkStyle} href="/settings">
-                  Settings
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                {this.props.userId ? (
-                  <NavLink
-                    style={linkStyle}
-                    onClick={this.handleLogout}
-                    href="#"
-                  >
-                    Logout
+        {this.props.userId ? (
+          <Navbar style={barStyle} light expand="md">
+            <NavbarBrand href="/">
+              <img src="wydWeb.png" width="100" height="40" />
+            </NavbarBrand>
+            <NavbarToggler onClick={this.toggle} />
+            <Collapse isOpen={this.state.isOpen} navbar>
+              <Nav className="ml-auto" navbar>
+                <NavItem>
+                  <NavLink style={linkStyle} href="/userhome">
+                    Home
                   </NavLink>
-                ) : (
-                  <NavLink style={linkStyle} href="/login">
-                    Login
+                </NavItem>
+                <NavItem>
+                  <NavLink style={linkStyle} href="/groups">
+                    Groups
                   </NavLink>
-                )}
-              </NavItem>
-            </Nav>
-          </Collapse>
-        </Navbar>
+                </NavItem>
+                <NavItem>
+                  <NavLink style={linkStyle} href="/settings">
+                    Settings
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  {this.props.userId ? (
+                    <NavLink
+                      style={linkStyle}
+                      onClick={this.handleLogout}
+                      href="#"
+                    >
+                      Logout
+                    </NavLink>
+                  ) : (
+                    <NavLink style={linkStyle} href="/login">
+                      Login
+                    </NavLink>
+                  )}
+                </NavItem>
+              </Nav>
+            </Collapse>
+          </Navbar>
+        ) : null}
       </div>
     )
   }
