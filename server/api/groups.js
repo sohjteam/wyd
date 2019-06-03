@@ -67,7 +67,7 @@ router.post('/:id', async (req, res, next) => {
   }
 })
 
-router.post('/:id', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
     const newGroup = await Group.create({
       name: req.body.newGroup.name,
