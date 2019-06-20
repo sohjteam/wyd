@@ -43,108 +43,110 @@ class Notifications extends Component {
     const notifs = this.props.notifs
     return (
       <div id="notifs">
-        <Container>
-          {notifs.map(
-            notif =>
-              notif.status === 'Pending' && notif.invite === 'friend' ? (
-                <div>
-                  <Card body>
-                    <CardTitle>
-                      {notif.invite.charAt(0).toUpperCase() +
-                        notif.invite.slice(1)}{' '}
-                      Invitation
-                    </CardTitle>
-                    <CardText>
-                      {notif.content.charAt(0).toUpperCase() +
-                        notif.content.slice(1)}!
-                    </CardText>
-                    <Button
-                      id="clearButton"
-                      onClick={() =>
-                        this.handleAccept(notif.senderId, notif.id)
-                      }
-                    >
-                      Accept
-                    </Button>
-                    <Button
-                      id="clearButton"
-                      onClick={() => this.handleReject(notif.id)}
-                    >
-                      Decline
-                    </Button>
-                  </Card>
-                </div>
-              ) : null
-          )}
-        </Container>
-        <Container>
-          {notifs.map(
-            notif =>
-              notif.status === 'Pending' && notif.invite === 'group' ? (
-                <div>
-                  <Card body>
-                    <CardTitle>
-                      {notif.invite.charAt(0).toUpperCase() +
-                        notif.invite.slice(1)}{' '}
-                      Invitation
-                    </CardTitle>
-                    <CardText>
-                      {notif.content.charAt(0).toUpperCase() +
-                        notif.content.slice(1)}!
-                    </CardText>
-                    <Button
-                      id="clearButton"
-                      onClick={() =>
-                        this.handleAcceptGroup(notif.id, notif.groupId)
-                      }
-                    >
-                      Accept
-                    </Button>
-                    <Button
-                      id="clearButton"
-                      onClick={() => this.handleReject(notif.id)}
-                    >
-                      Decline
-                    </Button>
-                  </Card>
-                </div>
-              ) : null
-          )}
-        </Container>
-        <Container>
-          {notifs.map(
-            notif =>
-              notif.status === 'Pending' && notif.invite === 'event' ? (
-                <div>
-                  <Card body>
-                    <CardTitle>
-                      {notif.invite.charAt(0).toUpperCase() +
-                        notif.invite.slice(1)}{' '}
-                      Invitation
-                    </CardTitle>
-                    <CardText>
-                      {notif.content.charAt(0).toUpperCase() +
-                        notif.content.slice(1)}!
-                    </CardText>
-                    <Button
-                      id="clearButton"
-                      onClick={() =>
-                        this.handleAcceptEvent(notif.id, notif.eventId)
-                      }
-                    >
-                      Accept
-                    </Button>
-                    <Button
-                      id="clearButton"
-                      onClick={() => this.handleReject(notif.id)}
-                    >
-                      Decline
-                    </Button>
-                  </Card>
-                </div>
-              ) : null
-          )}
-        </Container>
+        <>
+          <Container>
+            {notifs.map(
+              notif =>
+                notif.status === 'Pending' && notif.invite === 'friend' ? (
+                  <div>
+                    <Card body>
+                      <CardTitle>
+                        {notif.invite.charAt(0).toUpperCase() +
+                          notif.invite.slice(1)}{' '}
+                        Invitation
+                      </CardTitle>
+                      <CardText>
+                        {notif.content.charAt(0).toUpperCase() +
+                          notif.content.slice(1)}!
+                      </CardText>
+                      <Button
+                        id="clearButton"
+                        onClick={() =>
+                          this.handleAccept(notif.senderId, notif.id)
+                        }
+                      >
+                        Accept
+                      </Button>
+                      <Button
+                        id="clearButton"
+                        onClick={() => this.handleReject(notif.id)}
+                      >
+                        Decline
+                      </Button>
+                    </Card>
+                  </div>
+                ) : null
+            )}
+          </Container>
+          <Container>
+            {notifs.map(
+              notif =>
+                notif.status === 'Pending' && notif.invite === 'group' ? (
+                  <div>
+                    <Card body>
+                      <CardTitle>
+                        {notif.invite.charAt(0).toUpperCase() +
+                          notif.invite.slice(1)}{' '}
+                        Invitation
+                      </CardTitle>
+                      <CardText>
+                        {notif.content.charAt(0).toUpperCase() +
+                          notif.content.slice(1)}!
+                      </CardText>
+                      <Button
+                        id="clearButton"
+                        onClick={() =>
+                          this.handleAcceptGroup(notif.id, notif.groupId)
+                        }
+                      >
+                        Accept
+                      </Button>
+                      <Button
+                        id="clearButton"
+                        onClick={() => this.handleReject(notif.id)}
+                      >
+                        Decline
+                      </Button>
+                    </Card>
+                  </div>
+                ) : null
+            )}
+          </Container>
+          <Container>
+            {notifs.map(
+              notif =>
+                notif.status === 'Pending' && notif.invite === 'event' ? (
+                  <div>
+                    <Card body>
+                      <CardTitle>
+                        {notif.invite.charAt(0).toUpperCase() +
+                          notif.invite.slice(1)}{' '}
+                        Invitation
+                      </CardTitle>
+                      <CardText>
+                        {notif.content.charAt(0).toUpperCase() +
+                          notif.content.slice(1)}!
+                      </CardText>
+                      <Button
+                        id="clearButton"
+                        onClick={() =>
+                          this.handleAcceptEvent(notif.id, notif.eventId)
+                        }
+                      >
+                        Accept
+                      </Button>
+                      <Button
+                        id="clearButton"
+                        onClick={() => this.handleReject(notif.id)}
+                      >
+                        Decline
+                      </Button>
+                    </Card>
+                  </div>
+                ) : null
+            )}
+          </Container>
+        </>
       </div>
     )
   }

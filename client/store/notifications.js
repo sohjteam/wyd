@@ -51,13 +51,16 @@ export const updateStatus = (notifId, data) => async dispatch => {
 }
 
 export default function(state = initialState, action) {
+  let newNotifs
   switch (action.type) {
     case GET_NOTIFS:
       return {...state, notifs: action.notifs}
     case UPDATE_STATUS:
+      newNotifs = state.notifs.filter(notif => notif.id !== action.notif.id)
+      console.log('sss', newNotifs)
       return {
         ...state,
-        notifs: state.notifs.filter(notif => notif.id !== action.notif.id)
+        notifs: newNotifs
       }
     default:
       return state
