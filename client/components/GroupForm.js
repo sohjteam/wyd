@@ -50,7 +50,7 @@ class GroupForm extends Component {
               onChange={this.handleChange}
             />
           </FormGroup>
-          <FormGroup>
+          {/* <FormGroup>
             <Label for="groupPassword">Group Password</Label>
             <Input
               id="groupPasswordText"
@@ -59,7 +59,7 @@ class GroupForm extends Component {
               name="password"
               onChange={this.handleChange}
             />
-          </FormGroup>
+          </FormGroup> */}
           <FormGroup>
             <Label for="groupImage">Group Image</Label>
             <Input
